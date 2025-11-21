@@ -48,17 +48,10 @@
             background-size: cover; 
             background-position: center center; 
             background-repeat: no-repeat;
+            background-attachment: fixed; 
             position: relative;
         }
 
-        /* === Desktop-Only Fixed Attachment (1025px 以上才啟用) === */
-        @media (min-width: 1025px) {
-            .full-width-banner {
-                /* 確保只在支援 Fixed 且螢幕夠大的桌機上開啟此效果 */
-                background-attachment: fixed;
-            }
-        }
-        
         .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .info-item { padding: 30px 40px; font-size: 14px; }
         .info-title { font-weight: 700; margin-bottom: 8px; opacity: 0.6; }
@@ -266,17 +259,6 @@
         }
 
         footer { padding-bottom: 120px; }
-        
-        /* === 在這裡插入新的 1024px 修正區塊 === */
-        @media (max-width: 1024px) {
-            .full-width-banner {
-                background-attachment: scroll !important; 
-            }
-        }
-        /* ===================================== */
-
-        @media (max-width: 768px) { /* Line 55 */
-            h1 { font-size: 40px;
 
         /* === RWD 手機版 (768px) 修正區塊 === */
         @media (max-width: 768px) {
@@ -488,9 +470,9 @@
                 
                 <div class="tabs-container">
                     <div class="tabs-header">
-                        <div class="tab-btn active" onclick="openTab(event, 'therapist')">🧖‍♀️ 芳療師 </div>
-                        <div class="tab-btn" onclick="openTab(event, 'manager')">👔 店經理 </div>
-                        <div class="tab-btn" onclick="openTab(event, 'hq')">📊 總部主管 </div>
+                        <div class="tab-btn active" onclick="openTab(event, 'therapist')">🧖‍♀️ 芳療師 (第一線)</div>
+                        <div class="tab-btn" onclick="openTab(event, 'manager')">👔 店經理 (管理層)</div>
+                        <div class="tab-btn" onclick="openTab(event, 'hq')">📊 總部主管 (決策)</div>
                     </div>
 
                     <div id="therapist" class="tab-content active">
