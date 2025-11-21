@@ -11,6 +11,7 @@
             --bg-color: #F2F2F2;
             --text-color: #111111;
             --line-color: #000000;
+            --active-color: #000000;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -67,8 +68,9 @@
         .stat-number { font-size: 60px; font-weight: 900; line-height: 1; margin-bottom: 10px; color: #fff; }
         .stat-desc { font-size: 14px; opacity: 0.8; }
 
+        /* 圖片容器樣式調整 */
         .img-placeholder { 
-            width: 100%; 
+            width: 100%;
             height: auto; 
             min-height: 400px; 
             background: transparent; 
@@ -79,8 +81,19 @@
             color: #666; 
             border: none;
             margin-bottom: 20px;
+            cursor: zoom-in; /* 提示可點擊放大 */
+            overflow: hidden;
         }
-        .img-placeholder img { width: 100%; height: auto; object-fit: cover; min-height: 400px;}
+        .img-placeholder img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            min-height: 400px;
+            transition: transform 0.3s ease;
+        }
+        .img-placeholder:hover img {
+            transform: scale(1.02); /* 滑鼠懸停微放大效果 */
+        }
         
         /* Section 04 的圖片加上圓角 */
         #section-04 .img-placeholder img { border-radius: 30px; }
@@ -90,6 +103,14 @@
         .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
         .comp-box { background: #fff; padding: 30px; border: 1px solid #eee; }
         .comp-title { font-weight: 700; margin-bottom: 15px; display: block; }
+
+        /* 問題與解決方案 Grid (修正點 4) */
+        .problem-solution-grid {
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 30px; 
+            margin-bottom: 40px;
+        }
 
         /* 對話框樣式 */
         .quote-bubble {
@@ -127,6 +148,7 @@
             text-align: right;
         }
 
+        /* 底部導覽列 (修正點 1) */
         .bottom-menu {
             position: fixed;
             bottom: 0;
@@ -138,7 +160,16 @@
             border-top: 1px solid var(--line-color); 
             z-index: 999; 
             padding: 10px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05); 
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            /* 讓內容過長時可以滾動 */
+            overflow-x: auto; 
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch; /* iOS 流暢滾動 */
+        }
+        
+        /* 隱藏導覽列卷軸 */
+        .bottom-menu::-webkit-scrollbar {
+            display: none;
         }
 
         .menu-tab {
@@ -150,13 +181,81 @@
             color: var(--text-color);
             transition: 0.3s;
             border-bottom: 2px solid transparent; 
-            white-space: nowrap; 
+            white-space: nowrap;
+            flex-shrink: 0; /* 防止被壓縮 */
         }
 
         .menu-tab:hover, .menu-tab.active {
             font-weight: 700;
             border-bottom: 2px solid var(--line-color); 
             color: var(--text-color);
+        }
+
+        /* Tab 切換樣式 (修正點 5) */
+        .tabs-header {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            padding: 15px 25px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: #000;
+            background: #f9f9f9;
+        }
+        .tab-btn.active {
+            color: #000;
+            border-bottom: 3px solid #000;
+            font-weight: 700;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 燈箱樣式 (修正點 3) */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #333;
+            cursor: pointer;
         }
 
         footer { padding-bottom: 120px; }
@@ -168,11 +267,29 @@
             .project-hero { padding: 60px 20px; }
             .menu-tab { padding: 8px 10px; font-size: 12px; margin: 0 2px; }
             .full-width-banner { min-height: 40vh; background-attachment: scroll; }
+            
+            /* 修正點 1: 手機版導覽列靠左對齊，方便滑動 */
+            .bottom-menu { justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
+
+            /* 修正點 2: 手機版圖片完整顯示 */
+            .img-placeholder { min-height: auto; height: auto; }
+            .img-placeholder img { min-height: auto; object-fit: contain; }
+            
+            /* 修正點 4: 問題與解決方案變成單欄 */
+            .problem-solution-grid { grid-template-columns: 1fr; gap: 20px; }
+            
+            /* Tab 標題在手機上也可以滑動 */
+            .tabs-header { overflow-x: auto; -webkit-overflow-scrolling: touch; }
         }
     </style>
 </head>
 <body>
     
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Full screen">
+    </div>
+
     <nav class="bottom-menu">
         <a href="#section-01" class="menu-tab">01.背景</a>
         <a href="#section-02" class="menu-tab">02.研究</a>
@@ -217,7 +334,8 @@
                 </div>
             </div>
         </section>
-<section id="section-01" class="split-section border-b">
+
+        <section id="section-01" class="split-section border-b">
             <div class="split-left border-r">
                 01.<br>Background<br>& Challenge
             </div>
@@ -230,7 +348,7 @@
         <section class="goals-results-section pad-box border-b">
             <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #111;">💡 問題點與解決方案</h3>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div class="problem-solution-grid">
                 <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
                     <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 流程繁複</h4>
                     <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
@@ -247,7 +365,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div class="problem-solution-grid">
                 <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
                     <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 系統過時</h4>
                     <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
@@ -264,7 +382,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div class="problem-solution-grid">
                 <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
                     <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 使用者體驗差</h4>
                     <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
@@ -281,7 +399,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px;">
+            <div class="problem-solution-grid">
                 <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
                     <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 維護困難</h4>
                     <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
@@ -338,16 +456,51 @@
             </div>
             <div class="split-right">
                 <span class="section-label">使用者研究</span>
-                <p>在研究過程中，我針對三類主要使用者進行訪談與舊系統操作觀察：芳療師、店經理以及總部主管。</p>
+                <p style="margin-bottom:30px;">在研究過程中，我針對三類主要使用者進行訪談與舊系統操作觀察。點擊下方標籤查看不同角色的痛點與需求：</p>
                 
-                <h3 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px;">🧖‍♀️ 芳療師（第一線操作人員）</h3>
-                <p>在門市日常需同時服務顧客與處理紀錄，但舊有系統流程繁雜，操作步驟冗長，經常影響到服務效率。她們希望能有更直覺的操作介面，減少不必要的頁面切換，讓系統能真正輔助而非增加負擔。</p>
+                <div class="tabs-container">
+                    <div class="tabs-header">
+                        <div class="tab-btn active" onclick="openTab(event, 'therapist')">🧖‍♀️ 芳療師 (第一線)</div>
+                        <div class="tab-btn" onclick="openTab(event, 'manager')">👔 店經理 (管理層)</div>
+                        <div class="tab-btn" onclick="openTab(event, 'hq')">📊 總部主管 (決策)</div>
+                    </div>
 
-                <h3 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px;">👔 店經理（跨門市管理）</h3>
-                <p>面臨跨門市的人員管理與權限分層難題。舊系統缺乏彈性的管理機制，使跨部門協作與數據掌握更加困難。他們需要一套能支援多層級權限設定，並且清楚呈現整體營運狀態的後台系統。</p>
+                    <div id="therapist" class="tab-content active">
+                        <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">芳療師的核心痛點</h3>
+                        <p>在門市日常需同時服務顧客與處理紀錄，但舊有系統流程繁雜，操作步驟冗長，經常影響到服務效率。她們希望能有更直覺的操作介面，減少不必要的頁面切換，讓系統能真正輔助而非增加負擔。</p>
+                        <div style="background: #FFF5F5; padding: 20px; margin-top: 20px; border-left: 4px solid #D32F2F;">
+                             <p style="margin:0; font-weight:700; color: #D32F2F;">痛點：</p>
+                             <ul style="margin-top:10px; margin-left:20px;">
+                                 <li>一邊服務客人一邊操作電腦，速度慢會讓客人不耐煩。</li>
+                                 <li>結帳流程太常卡住，很怕算錯錢。</li>
+                             </ul>
+                        </div>
+                    </div>
 
-                <h3 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px;">📊 總部主管（決策與績效）</h3>
-                <p>負責人員排班、績效追蹤以及每日營運數據統整，但在現有系統下難以即時查看報表與管理資訊，往往需要額外人工整合，造成決策延遲與誤差。他們期待能擁有清晰、快速的報表工具。</p>
+                    <div id="manager" class="tab-content">
+                        <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">店經理的管理難題</h3>
+                        <p>面臨跨門市的人員管理與權限分層難題。舊系統缺乏彈性的管理機制，使跨部門協作與數據掌握更加困難。他們需要一套能支援多層級權限設定，並且清楚呈現整體營運狀態的後台系統。</p>
+                        <div style="background: #E8F5E9; padding: 20px; margin-top: 20px; border-left: 4px solid #4CAF50;">
+                             <p style="margin:0; font-weight:700; color: #4CAF50;">需求：</p>
+                             <ul style="margin-top:10px; margin-left:20px;">
+                                 <li>需要一眼就能看到今天的業績狀況。</li>
+                                 <li>權限設定要更靈活，不要讓新人看到敏感資料。</li>
+                             </ul>
+                        </div>
+                    </div>
+
+                    <div id="hq" class="tab-content">
+                        <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">總部主管的決策需求</h3>
+                        <p>負責人員排班、績效追蹤以及每日營運數據統整，但在現有系統下難以即時查看報表與管理資訊，往往需要額外人工整合，造成決策延遲與誤差。他們期待能擁有清晰、快速的報表工具。</p>
+                         <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
+                             <p style="margin:0; font-weight:700; color: #0288D1;">目標：</p>
+                             <ul style="margin-top:10px; margin-left:20px;">
+                                 <li>報表要即時，不要等到月底才能看。</li>
+                                 <li>跨店數據整合要準確。</li>
+                             </ul>
+                        </div>
+                    </div>
+                </div>
                 
                 <div style="margin-top: 50px;">
                     <span class="section-label">芳療師使用者旅程地圖</span>
@@ -454,7 +607,7 @@
                 </ul>
 
                 <div style="margin-top: 40px;">
-                    <div class="img-placeholder">
+                     <div class="img-placeholder">
                          <img src="./images/erp/new_purchase_ui.png" alt="New Purchasing Flow UI">
                     </div>
                     <p class="img-caption">▲ 新版購買單介面：整合明細、金額與活動查詢於同一畫面</p>
@@ -508,7 +661,7 @@
                         <img src="./images/erp/member_management.gif" alt="Member Management">
                     </div>
                     <div style="margin-top: 20px;">
-                        <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
+                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
                         <ul style="list-style-type: disc; margin-left: 20px;">
                             <li><strong>資訊總覽：</strong> 快速查看客人的點數、消費金額及消費堂數。</li>
                             <li><strong>動態消息：</strong> 供門市人員即時記錄客人的特殊需求或注意事項（如「3 月開刀」、「預計出國」），確保服務的個人化與細緻度。</li>
@@ -527,7 +680,7 @@
                         <img src="./images/erp/sales_distribution.gif" alt="Sales Distribution">
                     </div>
                     <div style="margin-top: 20px;">
-                        <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
+                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
                         <ul style="list-style-type: disc; margin-left: 20px;">
                             <li><strong>多筆分配能力：</strong> 突破舊系統只能單筆分配的限制，允許門市人員一次選取多筆已付款訂單進行批次業績歸屬。</li>
                             <li><strong>快速便捷操作：</strong> 提供最近輸入過的操作人員列表，實現快速選擇，大幅節省時間。</li>
@@ -545,7 +698,7 @@
                         <img src="./images/erp/inventory.gif" alt="Inventory Management">
                     </div>
                     <div style="margin-top: 20px;">
-                        <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
+                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
                         <ul style="list-style-type: disc; margin-left: 20px;">
                             <li><strong>儲位管理：</strong> 舊系統依賴整店手工盤點，新系統導入「儲位」概念，實現最小單位盤點，極大化準確性。</li>
                             <li><strong>彈性作業：</strong> 支援儲存進度，允許暫離後續盤，符合門市高機動性需求。</li>
@@ -559,7 +712,7 @@
             </div>
         </section>
 
-<section id="section-05" class="split-section border-b">
+        <section id="section-05" class="split-section border-b">
             <div class="split-left border-r">
                 05.<br>Results<br>& Impact
             </div>
@@ -643,9 +796,9 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 數字動畫邏輯
             const statsGrid = document.querySelector('.stats-grid');
             const counters = document.querySelectorAll('.count-up');
-            
             let isExecuted = false;
 
             const animateCounter = (counter) => {
@@ -658,17 +811,14 @@
                     if (!startTimestamp) startTimestamp = timestamp;
                     const elapsed = timestamp - startTimestamp;
                     const progress = Math.min(elapsed / duration, 1);
-                    
                     const currentValue = Math.floor(progress * target);
                     counter.textContent = currentValue + suffix;
-
                     if (progress < 1) {
                         window.requestAnimationFrame(step);
                     } else {
                         counter.textContent = target + suffix;
                     }
                 };
-
                 window.requestAnimationFrame(step);
             };
 
@@ -680,14 +830,50 @@
                         observer.unobserve(statsGrid);
                     }
                 });
-            }, {
-                threshold: 0.5
+            }, { threshold: 0.5 });
+
+            if (statsGrid) { observer.observe(statsGrid); }
+
+            // 燈箱邏輯
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const images = document.querySelectorAll('.img-placeholder img');
+
+            images.forEach(img => {
+                img.parentElement.addEventListener('click', () => {
+                    lightbox.style.display = 'flex';
+                    lightboxImg.src = img.src;
+                });
             });
 
-            if (statsGrid) {
-                observer.observe(statsGrid);
-            }
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                }
+            });
         });
+
+        // Tab 切換邏輯
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.className += " active";
+        }
     </script>
 </body>
 </html>

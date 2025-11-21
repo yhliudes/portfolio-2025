@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inmeet 交友軟體 APP | YA CHIEH LIU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #F2F2F2;
+            --text-color: #111111;
+            --line-color: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', 'Noto Sans TC', sans-serif; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+            background: #fff;
+        }
+
+        .border-b { border-bottom: 1px solid var(--line-color); }
+        .border-r { border-right: 1px solid var(--line-color); }
+        .pad-box { padding: 60px 40px; }
+        .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.5; }
+        
+        header { display: flex; justify-content: space-between; padding: 20px 40px; align-items: center; }
+        .logo { font-weight: 900; font-size: 20px; }
+        .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
+        .back-btn:hover { background: #000; color: #fff; }
+
+        .project-hero { padding: 100px 40px 60px; }
+        h1 { font-size: 64px; line-height: 1.1; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; }
+        .tagline { font-size: 20px; font-weight: 500; color: #555; max-width: 600px; }
+
+        .full-width-banner {
+            padding: 0;
+            min-height: 80vh;
+            background-image: url('./images/inmeet/cover_banner.png'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            position: relative;
+        }
+
+        .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+        .info-item { padding: 30px 40px; font-size: 14px; }
+        .info-title { font-weight: 700; margin-bottom: 8px; opacity: 0.6; }
+
+        .split-section { display: grid; grid-template-columns: 1fr 2fr; }
+        .split-left { padding: 60px 40px; font-weight: 700; font-size: 24px; }
+        .split-right { padding: 60px 40px; font-size: 16px; color: #333; }
+        .split-right p { margin-bottom: 20px; text-align: justify; }
+        .split-right ul { margin-left: 20px; margin-bottom: 20px; }
+        .split-right li { margin-bottom: 10px; }
+
+        .img-placeholder { 
+            width: 100%; 
+            height: auto; 
+            background: transparent; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            margin-bottom: 20px;
+        }
+        .img-placeholder img { width: 100%; height: auto; object-fit: cover;}
+        .img-caption { font-size: 14px; color: #666; text-align: center; margin-top: 10px; }
+
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+        .comp-box { background: #fff; padding: 30px; border: 1px solid #eee; }
+        .comp-title { font-weight: 700; margin-bottom: 15px; display: block; }
+
+        .bottom-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex; 
+            justify-content: center; 
+            background-color: #fff; 
+            border-top: 1px solid var(--line-color); 
+            z-index: 999; 
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05); 
+        }
+
+        .menu-tab {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 15px;
+            margin: 0 5px;
+            color: var(--text-color);
+            transition: 0.3s;
+            border-bottom: 2px solid transparent; 
+            white-space: nowrap; 
+        }
+
+        .menu-tab:hover, .menu-tab.active {
+            font-weight: 700;
+            border-bottom: 2px solid var(--line-color); 
+            color: var(--text-color);
+        }
+
+        footer { padding-bottom: 120px; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 40px; }
+            .info-grid, .split-section, .comparison-grid { grid-template-columns: 1fr; }
+            .info-item, .split-left, .split-right { border-right: none; border-bottom: 1px solid var(--line-color); padding: 30px 20px; }
+            .project-hero { padding: 60px 20px; }
+            .menu-tab { padding: 8px 10px; font-size: 12px; margin: 0 2px; }
+            .full-width-banner { min-height: 40vh; background-attachment: scroll; }
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="bottom-menu">
+        <a href="#section-01" class="menu-tab">01.總覽</a>
+        <a href="#section-02" class="menu-tab">02.使用流程</a>
+        <a href="#section-03" class="menu-tab">03.資訊架構</a>
+        <a href="#section-04" class="menu-tab">04.設計系統</a>
+        <a href="#section-05" class="menu-tab">05.MVP</a>
+        <a href="#section-06" class="menu-tab">06.介面更迭</a>
+        <a href="#section-07" class="menu-tab">07.登入機制</a>
+        <a href="#section-08" class="menu-tab">08.後台系統</a>
+        <a href="#section-09" class="menu-tab">09.反思</a>
+    </nav>
+
+    <div class="container">
+        <header class="border-b">
+            <div class="logo">YA CHIEH LIU</div>
+            <a href="https://yhliudes.github.io/portfolio-2025/" class="back-btn">← BACK TO LIST</a>
+        </header>
+
+        <section class="project-hero border-b">
+            <span class="section-label">Selected Work / 2022</span>
+            <h1>inmeet<br>Dating App Design.</h1>
+            <p class="tagline">一款輕鬆簡易的交友軟體，<br>讓交朋友變得更快速無負擔。</p>
+        </section>
+
+        <section class="full-width-banner border-b"></section>
+
+        <section class="meta-data-section border-b">
+            <div class="info-grid">
+                <div class="info-item border-r">
+                    <div class="info-title">專案團隊</div>
+                    <div>獨立作業</div>
+                </div>
+                <div class="info-item border-r">
+                    <div class="info-title">專案時間</div>
+                    <div>2022.03 - 2022.08<br>已上線</div>
+                </div>
+                <div class="info-item border-r">
+                    <div class="info-title">負責任務</div>
+                    <div>介面設計<br>原型製作<br>設計系統<br>後台系統</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-title">專案簡介</div>
+                    <div>inmeet 是一款輕鬆簡易的交友軟體，讓交朋友變得更快速無負擔，無多餘累贅功能，首頁便能輕鬆找到心儀對象直接聊天，讓交友變得更簡單。</div>
+                </div>
+            </div>
+        </section>
+
+<section id="section-01" class="split-section border-b">
+            <div class="split-left border-r">
+                01.<br>Project<br>Overview
+            </div>
+            <div class="split-right">
+                <span class="section-label">專案總覽</span>
+                
+                <div class="img-placeholder">
+                    <img src="./images/inmeet/overview.jpg" alt="Inmeet 概覽">
+                </div>
+                
+                <h3 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px; font-size: 20px;">Inmeet：讓交友更輕鬆的互動平台</h3>
+                <p>Inmeet 是一款充滿活力的交友應用，讓你輕鬆自在地認識新朋友！我們專注於簡設計，摒棄冗餘功能，讓你在首頁快速找到心儀對象，隨時展開聊天，享受無壓力的交友體驗！</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">專案目標</h3>
+                <p>我們希望藉由此 app 讓設計概念相似度已經過高的交友軟體 app 帶入新的概念，同時讓交友更加快速便利以及安全。</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">市場現況</h3>
+                <p>目前市面上的交友軟體絕大多數都是相似於 tinder 的往右滑概念，各款交友軟體的相似度過高，我們為了與市場做出區隔，希望藉由 inmeet 讓交友軟體更加直覺，快速速配到最適合的配對。</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">角色產出</h3>
+                <p>在此專案中，我與客戶及工程師積極溝通與合作。我負責 UI 設計流程與產出，來回與客戶討論增減 app 應有功能以及視覺設計，最終交付給工程師。</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">設計流程</h3>
+                <div class="img-placeholder">
+                    <img src="./images/inmeet/design_process.png" alt="設計流程">
+                </div>
+                <p class="img-caption">▲ 設計流程圖</p>
+                <p style="margin-top: 20px;">此專案由於需要早期就產出視覺稿，於是我在研究各大交友軟體的差異後就開始著手進行設計，在三天內產出初版設計並且與客戶與 PM 進行討論後再陸續新增功能以及修改流程。</p>
+            </div>
+        </section>
+
+        <section id="section-02" class="split-section border-b">
+            <div class="split-left border-r">
+                02.<br>User<br>Flow
+            </div>
+            <div class="split-right">
+                <span class="section-label">使用流程</span>
+                <p>我們將此 app 以男女作為分別，如為女性使用者即可自由觀看其他使用者的社群媒體帳號以及私人照片；如為男性使用者則需要加入 VIP 會員，以此提升使用者加入會員的意願。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/task_flow.png" alt="使用流程圖">
+                </div>
+                <p class="img-caption">▲ 使用者任務流程圖</p>
+
+                <div style="background: #FFF9C4; padding: 25px; margin: 30px 0; border-left: 4px solid #F57F17;">
+                    <p style="margin: 0;"><strong>💡 核心機制：</strong>男性使用者如未加入 VIP，則需要使用愛心才能與女性使用者聊天或解鎖付費內容，如加入 VIP 則不需要再購買愛心。</p>
+                </div>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/user_flow_detail.png" alt="詳細流程">
+                </div>
+            </div>
+        </section>
+
+        <section id="section-03" class="split-section border-b">
+            <div class="split-left border-r">
+                03.<br>Information<br>Architecture
+            </div>
+            <div class="split-right">
+                <span class="section-label">資訊架構</span>
+                <p>在整理使用者的需求後，將此 app 分為五大功能「首頁」「興趣」「動態」「聊天」「個人」，並且列出各頁面的主要功能以及流程。「興趣」及「動態」頁為後期加入功能，為了因應使用者在此交友軟體的社交需求，可搜尋與自己有相同興趣的人以及能夠查看其他使用者的動態。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/info_architecture.png" alt="資訊架構圖">
+                </div>
+                <p class="img-caption">▲ inmeet 資訊架構圖：5 大核心功能模組</p>
+            </div>
+        </section>
+
+        <section id="section-04" class="split-section border-b" style="background: #f9f9f9;">
+            <div class="split-left border-r">
+                04.<br>Design<br>System
+            </div>
+            <div class="split-right">
+                <span class="section-label">設計系統</span>
+                <p>在安排設計系統時，首先確定的是主視覺必須是桃紅色以及暗色背景系統，因此在設計完 icon 後，決定 app 整體使用黑色背景，配合上主色粉色以及輔助色，按鈕也以圓弧為主。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/design_system.png" alt="設計系統">
+                </div>
+                <p class="img-caption">▲ inmeet 設計系統：主色調、輔助色、按鈕樣式</p>
+
+                <div style="background: #E3F2FD; padding: 25px; margin-top: 30px; border-left: 4px solid #0288D1;">
+                    <h4 style="font-weight: 700; margin-bottom: 15px;">設計原則</h4>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li><strong>主色調：</strong>桃紅色，營造活潑友善的氛圍</li>
+                        <li><strong>背景系統：</strong>暗色系，突顯內容並減少視覺疲勞</li>
+                        <li><strong>按鈕設計：</strong>圓弧為主，柔和親切</li>
+                        <li><strong>視覺層次：</strong>清晰明確的資訊層級</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-05" class="split-section border-b">
+            <div class="split-left border-r">
+                05.<br>MVP<br>Features
+            </div>
+            <div class="split-right">
+                <span class="section-label">最小可行產品 (MVP)</span>
+                <p>在確定此 app 核心功能後，我開始進行設計及流程細節，此 app 最必要的功能為配對以及聊天系統，我花了三天的時間製作核心的幾項功能，分別為隨機配對、篩選、約會頁、以及聊天頁。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/mvp_features.png" alt="MVP 核心功能">
+                </div>
+                <p class="img-caption">▲ MVP 核心功能：配對、篩選、約會、聊天</p>
+
+                <div style="background: #E8F5E9; padding: 25px; margin-top: 30px; border-left: 4px solid #4CAF50;">
+                    <h4 style="font-weight: 700; margin-bottom: 15px;">核心功能優先順序</h4>
+                    <ol style="list-style-type: decimal; margin-left: 20px;">
+                        <li><strong>隨機配對：</strong>快速瀏覽使用者，找到心儀對象</li>
+                        <li><strong>篩選功能：</strong>依照條件精準搜尋</li>
+                        <li><strong>約會頁面：</strong>查看配對成功的使用者</li>
+                        <li><strong>聊天系統：</strong>即時通訊，建立連結</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-06" class="split-section border-b">
+            <div class="split-left border-r">
+                06.<br>Interface<br>Evolution
+            </div>
+            <div class="split-right">
+                <span class="section-label">介面更迭</span>
+                <p>在快速製作出第一版視覺稿後，我們認為向左滑、向右滑的方式太過普遍，因此將配對方式修改為卡片條列式，讓使用者可以更一目瞭然。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/interface_evolution.png" alt="介面更迭">
+                </div>
+                <p class="img-caption">▲ 介面演進：從滑動式改為卡片條列式</p>
+
+                <div style="background: #F0F9FF; padding: 25px; margin-top: 30px; border-left: 4px solid #0288D1;">
+                    <h4 style="font-weight: 700; margin-bottom: 15px;">設計思考</h4>
+                    <p style="margin: 0;">捨棄傳統「左滑右滑」的配對方式，改為卡片條列式設計，讓使用者能夠同時瀏覽多位候選人，提供更直覺、更有效率的配對體驗。此設計也降低了誤觸的機率，讓使用者能更謹慎地選擇心儀對象。</p>
+                </div>
+            </div>
+        </section>
+
+<section id="section-07" class="split-section border-b">
+            <div class="split-left border-r">
+                07.<br>Login<br>Rewards
+            </div>
+            <div class="split-right">
+                <span class="section-label">登入好禮：如何讓使用者黏著度提高</span>
+                <p>在將視覺設計完成到一階段後，我們轉為研究如何讓使用者黏著度提高，討論過後決定加入「登入好禮」以及「充足資訊」，讓使用者更願意提供自己的資訊以及樂於登入。</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">登入好禮新增重點</h3>
+                <ul style="list-style-type: disc; margin-left: 20px;">
+                    <li><strong>註冊好禮及登入好禮：</strong>註冊即可享有 30 顆愛心，如每日註冊可再獲得額外愛心。</li>
+                    <li><strong>資料完整度鼓勵：</strong>在註冊時需要填寫個人檔案，為了提升填寫意願，如在註冊時略過的資料，會在進入首頁時鼓勵填寫。</li>
+                    <li><strong>持續提醒機制：</strong>如未填寫會在個人頁顯示，隨時可以再進行資料補填。</li>
+                </ul>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/login_rewards.png" alt="登入好禮機制">
+                </div>
+                <p class="img-caption">▲ 登入好禮機制：註冊獎勵與資料完整度提升策略</p>
+
+                <div style="background: #FFF3E0; padding: 25px; margin-top: 30px; border-left: 4px solid #FF9800;">
+                    <h4 style="font-weight: 700; margin-bottom: 15px;">💎 提升黏著度的策略</h4>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li>透過獎勵機制鼓勵每日登入</li>
+                        <li>漸進式引導填寫個人資料</li>
+                        <li>清楚顯示資料完整度，激勵補填</li>
+                        <li>降低新用戶的使用門檻</li>
+                    </ul>
+                </div>
+
+                <h3 style="font-weight: 700; margin-top: 50px; margin-bottom: 15px; font-size: 18px;">初次登入使用流程</h3>
+                <p>初次登入使用流程我們預設為男性使用者，在登入後選擇心儀的使用者，點入個人資訊頁後開始聊天的流程。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/first_login_flow.gif" alt="初次登入流程">
+                </div>
+                <p class="img-caption">▲ 初次登入使用流程動態展示</p>
+            </div>
+        </section>
+
+        <section id="section-08" class="split-section border-b" style="background: #f9f9f9;">
+            <div class="split-left border-r">
+                08.<br>Backend<br>System
+            </div>
+            <div class="split-right">
+                <span class="section-label">後台系統</span>
+                <p>在設計 app 的同時，也進行後台系統的建置，分別為總後台、經銷商後台、總機後台，三個後台共約 80 個頁面並且持續增加當中。在製作後台系統時，由於需要考慮到與 app 配合的功能性，做了許多取捨與修改，也與客戶以及工程師積極溝通修改。</p>
+
+                <div class="img-placeholder" style="margin-top: 30px;">
+                    <img src="./images/inmeet/backend_system.png" alt="後台系統">
+                </div>
+                <p class="img-caption">▲ 後台系統：總後台、經銷商後台、總機後台</p>
+
+                <div style="background: #E8F5E9; padding: 25px; margin-top: 30px; border-left: 4px solid #4CAF50;">
+                    <h4 style="font-weight: 700; margin-bottom: 15px;">後台系統架構</h4>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li><strong>總後台：</strong>整體營運數據、使用者管理、系統設定</li>
+                        <li><strong>經銷商後台：</strong>業績追蹤、客戶管理、報表系統</li>
+                        <li><strong>總機後台：</strong>客服聊天、問題處理、即時回應</li>
+                        <li><strong>頁面總數：</strong>約 80 個頁面，持續擴充中</li>
+                    </ul>
+                </div>
+
+                <div style="background: #FFF9C4; padding: 25px; margin-top: 30px; border-left: 4px solid #F57F17;">
+                    <p style="margin: 0;"><strong>💡 設計挑戰：</strong>在製作後台系統時，需要考慮與 app 功能的串接與同步，並在功能性與易用性之間取得平衡。透過與客戶及工程師的持續溝通，逐步優化後台的操作流程與介面設計。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="pad-box border-b">
+            <span class="section-label">APP 頁面展示</span>
+            <h2 style="font-size: 32px; margin-bottom: 40px; text-align: center;">關鍵介面展示</h2>
+
+            <div class="img-placeholder">
+                <img src="./images/inmeet/app_showcase.png" alt="APP 頁面展示">
+            </div>
+            <p class="img-caption">▲ inmeet APP 主要頁面展示</p>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px;">
+                <div>
+                    <h4 style="font-weight: 700; margin-bottom: 10px; text-align: center;">首頁配對</h4>
+                    <p style="font-size: 14px; color: #666; text-align: center;">卡片式瀏覽，快速找到心儀對象</p>
+                </div>
+                <div>
+                    <h4 style="font-weight: 700; margin-bottom: 10px; text-align: center;">興趣社群</h4>
+                    <p style="font-size: 14px; color: #666; text-align: center;">尋找志同道合的朋友</p>
+                </div>
+                <div>
+                    <h4 style="font-weight: 700; margin-bottom: 10px; text-align: center;">即時聊天</h4>
+                    <p style="font-size: 14px; color: #666; text-align: center;">流暢的通訊體驗</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-09" class="split-section border-b">
+            <div class="split-left border-r">
+                09.<br>Reflection
+            </div>
+            <div class="split-right">
+                <span class="section-label">反思與感想</span>
+                <p>在此專案中我一人負責了介面設計、原型製作、設計系統、後台系統，從 0 到 1 的過程學到了非常多，也有許多需要改善與反思的地方：</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">＃設計脈絡需有邏輯</h3>
+                <p>在製作 app 及後台途中與客戶討論做了非常多次的設計改版，我發現在一人設計時容易會有盲點，在這個時候必須跳脫框架以使用者的模式去思考，如何設計才是有邏輯並且對使用者方便的步驟。</p>
+
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 15px; font-size: 18px;">＃與工程師的溝通重要性</h3>
+                <p>有許多頁面在設計時，工程師並不了解或是無法做到的功能，在這種時候必須與工程師討論折衷的作法，或是需要說服工程師此設計的功能性以及正確性。例如在製作後台聊天室時，由於聊天室是由總機代替技師與會員聊天，此功能較為特殊，因此來回與工程師進行了許多討論，最後才決定了設計以及同時兼顧工程師能夠做到的聊天頁。</p>
+
+                <div style="background: #E3F2FD; padding: 25px; margin-top: 40px; border-left: 4px solid #0288D1;">
+                    <h4 style="font-weight: 700; margin-bottom: 15px;">核心學習</h4>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li><strong>獨立設計的挑戰：</strong>學會跳脫自我視角，以使用者思維設計</li>
+                        <li><strong>跨職能溝通：</strong>與工程師、客戶的有效協作</li>
+                        <li><strong>快速迭代能力：</strong>在時間壓力下產出高品質設計</li>
+                        <li><strong>系統性思考：</strong>同時考量前後台的整合性</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+<footer style="padding: 60px 40px; text-align: center;">
+            <p style="margin-bottom: 20px; opacity: 0.5;">Next Project</p>
+            <a href="smarter-erp.html" style="font-size: 24px; font-weight: 900; border-bottom: 2px solid #000;">Smarter ERP 系統設計 ↗</a>
+            <br><br><br>
+            <a href="https://yhliudes.github.io/portfolio-2025/" style="font-size: 14px; color: #666;">← Back to Home</a>
+        </footer>
+    </div>
+
+</body>
+</html>
