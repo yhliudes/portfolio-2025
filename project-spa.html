@@ -51,7 +51,14 @@
             background-attachment: fixed; 
             position: relative;
         }
-
+    /* === Tablet RWD 修正 (1024px 以下) === */
+        @media (max-width: 1024px) {
+            /* 修正 iPad/iOS 裝置上 fixed 背景圖片不顯示的問題 */
+            .full-width-banner {
+                background-attachment: scroll; 
+            }
+        }
+        
         .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
         .info-item { padding: 30px 40px; font-size: 14px; }
         .info-title { font-weight: 700; margin-bottom: 8px; opacity: 0.6; }
@@ -259,6 +266,17 @@
         }
 
         footer { padding-bottom: 120px; }
+        
+        /* === 在這裡插入新的 1024px 修正區塊 === */
+        @media (max-width: 1024px) {
+            .full-width-banner {
+                background-attachment: scroll !important; 
+            }
+        }
+        /* ===================================== */
+
+        @media (max-width: 768px) { /* Line 55 */
+            h1 { font-size: 40px;
 
         /* === RWD 手機版 (768px) 修正區塊 === */
         @media (max-width: 768px) {
