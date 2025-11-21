@@ -48,14 +48,14 @@
             background-size: cover; 
             background-position: center center; 
             background-repeat: no-repeat;
-            background-attachment: fixed; 
             position: relative;
         }
-    /* === Tablet RWD 修正 (1024px 以下) === */
-        @media (max-width: 1024px) {
-            /* 修正 iPad/iOS 裝置上 fixed 背景圖片不顯示的問題 */
+
+        /* === Desktop-Only Fixed Attachment (1025px 以上才啟用) === */
+        @media (min-width: 1025px) {
             .full-width-banner {
-                background-attachment: scroll; 
+                /* 確保只在支援 Fixed 且螢幕夠大的桌機上開啟此效果 */
+                background-attachment: fixed;
             }
         }
         
