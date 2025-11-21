@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YA CHIEH LIU | Portfolio</title>
+    <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === 核心設定 === */
+        :root {
+            --bg-color: #F2F2F2;
+            --text-color: #111111;
+            --line-color: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            line-height: 1.5;
+        }
+
+        a { text-decoration: none; color: inherit; cursor: pointer; }
+        ul { list-style: none; }
+
+        /* === 網格與佈局 === */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+            background: #fff; /* 確保背景是白色 */
+            min-height: 100vh;
+        }
+
+        /* === 跑馬燈動畫 === */
+        .marquee {
+            background: var(--text-color);
+            color: #fff;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--line-color);
+        }
+        .marquee-text {
+            display: inline-block;
+            animation: scroll 20s linear infinite;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* === Header === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px;
+            border-bottom: 1px solid var(--line-color);
+        }
+        .logo { font-weight: 900; font-size: 24px; letter-spacing: -0.5px; }
+        nav ul { display: flex; gap: 32px; font-size: 14px; font-weight: 500; }
+        nav a:hover { text-decoration: underline; }
+
+        /* === Hero Section === */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            min-height: 30vh;
+            border-bottom: 1px solid var(--line-color);
+        }
+        .hero-left {
+            padding: 60px 40px;
+            border-right: 1px solid var(--line-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hero-right {
+            padding: 60px 40px;
+            display: flex;
+            align-items: flex-end;
+        }
+        h1 { font-size: 80px; line-height: 0.9; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
+        .intro-text { font-size: 16px; max-width: 400px; color: #444; }
+
+        /* === 作品列表 (重點設計) === */
+        .section-title { padding: 20px 40px; font-size: 12px; font-weight: 700; border-bottom: 1px solid var(--line-color); text-transform: uppercase; letter-spacing: 1px; }
+        
+        .project-item {
+            display: grid;
+            grid-template-columns: 80px 1fr 200px; /* 編號 | 名稱 | 類別 */
+            padding: 40px;
+            border-bottom: 1px solid var(--line-color);
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .project-item:hover {
+            background: #000;
+            color: #fff;
+        }
+        .p-num { font-size: 14px; opacity: 0.5; font-family: 'Inter'; }
+        .p-name { font-size: 32px; font-weight: 700; }
+        .p-cat { font-size: 14px; text-align: right; opacity: 0.7; }
+
+        /* === 懸浮圖片 === */
+        .hover-img {
+            position: fixed;
+            width: 400px;
+            height: 260px;
+            object-fit: cover;
+            pointer-events: none;
+            z-index: 10;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.8);
+            transition: opacity 0.2s, transform 0.2s;
+            border: 1px solid #000;
+            display: none; /* 預設隱藏，JS控制顯示 */
+        }
+
+        /* === Footer === */
+        footer { padding: 80px 40px; text-align: center; }
+        .contact-btn {
+            display: inline-block;
+            font-size: 40px;
+            font-weight: 900;
+            border-bottom: 2px solid transparent;
+            transition: 0.3s;
+        }
+        .contact-btn:hover { border-bottom: 2px solid #000; }
+
+        /* === 手機版調整 === */
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-left { border-right: none; border-bottom: 1px solid var(--line-color); padding: 40px 20px; }
+            .hero-right { padding: 40px 20px; }
+            h1 { font-size: 48px; }
+            .project-item { grid-template-columns: 1fr; gap: 10px; padding: 30px 20px; }
+            .p-cat { text-align: left; }
+            .hover-img { display: none !important; } /* 手機不顯示懸浮圖 */
+            header { padding: 20px; }
+            nav ul { gap: 15px; }
+        }
+
+        /* 👇 CSS 修正區塊 👇 */
+
+        .hero-right {
+            padding: 60px 40px;
+            display: flex;
+            align-items: flex-end; /* 讓內容靠下對齊 */
+        }
+
+        .intro-wrapper {
+            display: flex;
+            flex-direction: column; /* 讓動畫和文字垂直排列 */
+            gap: 0px; /* 動畫跟文字之間的距離 */
+        }
+
+        /* 👆 貼到這裡為止 👆 */
+
+    </style> </head>
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="marquee">
+            <div class="marquee-text">
+                YA CHIEH LIU PORTFOLIO • UI/UX DESIGN • DIGITAL EXPERIENCE • 2025 SELECTED WORKS • 
+                YA CHIEH LIU PORTFOLIO • UI/UX DESIGN • DIGITAL EXPERIENCE • 2025 SELECTED WORKS •
+            </div>
+        </div>
+
+        <header>
+            <div class="logo">YC. DESIGN</div>
+            <nav>
+                <ul>
+                    <li><a href="#works">Works</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="mailto:yachiehliu.des@gmail.com">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <div class="hero-left">
+                <h1>PORTFOLIO<br>2025</h1>
+                <p style="margin-top: 20px; font-weight: 700;">— UI/UX Designer</p>
+            </div>
+          <div class="hero-right">
+           <div class="intro-wrapper">
+        
+               <dotlottie-wc 
+                      src="https://lottie.host/07daa20b-9c82-4df5-9f8a-5a8e1c91d92e/7jzzhOStNE.lottie" 
+                       autoplay 
+                     loop 
+                      style="width: 300px; height: 300px; max-width: 100%; margin-left: -10px;">
+        </dotlottie-wc>
+
+        <p class="intro-text">
+            Hi, I'm Chieh. 以平面設計為起點，在理性與美感間尋找平衡。<br>
+            專注於打造直觀、流暢且具備美感的數位體驗。
+        </p>
+        
+    </div>
+</div>
+        </section>
+
+        <div id="works">
+            <div class="section-title">Selected Projects</div>
+
+            <a href="project-spa.html" class="project-item" onmouseenter="showImg('img1')" onmouseleave="hideImg()">
+                <span class="p-num">01</span>
+                <span class="p-name">SPA 產業後台系統</span>
+                <span class="p-cat">ERP / B2B System</span>
+            </a>
+
+            <a href="https://maynightliu.wixsite.com/yachiehdesign/副本-erect創作平台app" target="_blank" class="project-item" onmouseenter="showImg('img2')" onmouseleave="hideImg()">
+                <span class="p-num">02</span>
+                <span class="p-name">CMSinmeet 交友軟體</span>
+                <span class="p-cat">App Design / Social</span>
+            </a>
+
+            <a href="https://maynightliu.wixsite.com/yachiehdesign/創作平台app" target="_blank" class="project-item" onmouseenter="showImg('img3')" onmouseleave="hideImg()">
+                <span class="p-num">03</span>
+                <span class="p-name">Erect 創作投稿平台</span>
+                <span class="p-cat">Side Project / Platform</span>
+            </a>
+        </div>
+
+        <footer id="about">
+            <p style="margin-bottom: 20px; opacity: 0.5;">INTERESTED IN WORKING TOGETHER?</p>
+            <a href="mailto:yachiehliu.des@gmail.com" class="contact-btn">Get in Touch ↗</a>
+            <p style="margin-top: 60px; font-size: 12px; opacity: 0.3;">© 2025 YA CHIEH LIU</p>
+        </footer>
+    </div>
+
+    <img id="preview-img" class="hover-img" src="" alt="Project Preview">
+
+    <script>
+    const previewImg = document.getElementById('preview-img');
+
+    // 👇 將這裡的連結換成你圖床提供的完整網址 👇
+    const projectImages = {
+        'img1': 'https://images.plurk.com/5XY9bgCJINCAKSKKIBBWkN.png', // 圖床完整網址
+        'img2': 'https://other-image-host.net/project_02_cover.png',         // 圖床完整網址
+        'img3': 'https://cdn.example.com/project_03_preview.webp'          // 圖床完整網址
+    };
+
+        function showImg(id) {
+            if(window.innerWidth > 768) { // 只有電腦版顯示
+                previewImg.src = projectImages[id];
+                previewImg.style.display = 'block';
+                setTimeout(() => {
+                    previewImg.style.opacity = '1';
+                    previewImg.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 10);
+            }
+        }
+
+        function hideImg() {
+            previewImg.style.opacity = '0';
+            previewImg.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            setTimeout(() => {
+                previewImg.style.display = 'none';
+            }, 200);
+        }
+
+        // 讓圖片跟著滑鼠動
+        document.addEventListener('mousemove', (e) => {
+            if(previewImg.style.display === 'block') {
+                previewImg.style.left = e.clientX + 'px';
+                previewImg.style.top = e.clientY + 'px';
+            }
+        });
+    </script>
+</body>
+</html>

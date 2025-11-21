@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smarter ERP | YA CHIEH LIU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === 核心風格 CSS === */
+        :root {
+            --bg-color: #F2F2F2;
+            --text-color: #111111;
+            --line-color: #000000;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', 'Noto Sans TC', sans-serif; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* --- 佈局容器 --- */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+            background: #fff; /* 必須為白色，才能覆蓋固定背景圖片 */
+        }
+
+        /* --- 通用標題與線條 --- */
+        .border-b { border-bottom: 1px solid var(--line-color); }
+        .border-r { border-right: 1px solid var(--line-color); }
+        .pad-box { padding: 60px 40px; }
+        .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.5; }
+        
+        /* --- Header --- */
+        header { display: flex; justify-content: space-between; padding: 20px 40px; align-items: center; }
+        .logo { font-weight: 900; font-size: 20px; }
+        .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
+        .back-btn:hover { background: #000; color: #fff; }
+
+        /* --- Project Hero --- */
+        .project-hero { padding: 100px 40px 60px; }
+        h1 { font-size: 64px; line-height: 1.1; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; }
+        .tagline { font-size: 20px; font-weight: 500; color: #555; max-width: 600px; }
+
+        /* -------------------------------------- */
+        /* --- Parallax Banner 樣式 (關鍵修正) --- */
+        /* -------------------------------------- */
+        .full-width-banner {
+            padding: 0;
+            min-height: 80vh; /* 設置一個可見的高度 */
+            
+            /* 將圖片設置為背景 */
+            background-image: url('./images/erp_banner.png'); 
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            
+            /* 關鍵效果：背景固定，讓後續內容滾動時覆蓋它，產生視覺上的消失感 */
+            background-attachment: fixed; 
+            
+            /* 確保邊界線能正常顯示 */
+            position: relative;
+        }
+
+
+        /* --- Info Grid (專案資訊表格) --- */
+        .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+        .info-item { padding: 30px 40px; font-size: 14px; }
+        .info-title { font-weight: 700; margin-bottom: 8px; opacity: 0.6; }
+
+        /* --- 兩欄佈局 (左標題 右內容) --- */
+        .split-section { display: grid; grid-template-columns: 1fr 2fr; }
+        .split-left { padding: 60px 40px; font-weight: 700; font-size: 24px; }
+        .split-right { padding: 60px 40px; font-size: 16px; color: #333; }
+        .split-right p { margin-bottom: 20px; text-align: justify; }
+        .split-right ul { margin-left: 20px; margin-bottom: 20px; }
+        .split-right li { margin-bottom: 10px; }
+
+        /* --- 數據成果展示 (Big Numbers) --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; color: #fff; }
+        .stat-box { padding: 60px 40px; border-right: 1px solid #333; text-align: center; }
+        .stat-number { font-size: 60px; font-weight: 900; line-height: 1; margin-bottom: 10px; color: #fff; }
+        .stat-desc { font-size: 14px; opacity: 0.8; }
+
+        /* --- 全寬圖片區 --- */
+        .full-img-section { padding: 40px; background: #f9f9f9; }
+        .img-placeholder { 
+            width: 100%; 
+            height: auto; 
+            min-height: 400px; 
+            background: #ddd; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 20px; 
+            color: #666; 
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .img-placeholder img { width: 100%; height: auto; object-fit: cover; min-height: 400px;}
+        .img-caption { font-size: 14px; color: #666; text-align: center; margin-top: 10px; }
+
+        /* --- Before/After 比較 --- */
+        .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+        .comp-box { background: #fff; padding: 30px; border: 1px solid #eee; }
+        .comp-title { font-weight: 700; margin-bottom: 15px; display: block; }
+
+
+        /* ---------------------------------- */
+        /* --- 底部橫式懸浮選單 (Bottom Menu) --- */
+        /* ---------------------------------- */
+        .bottom-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex; 
+            justify-content: center; 
+            
+            background-color: #fff; 
+            border-top: 1px solid var(--line-color); 
+            z-index: 999; 
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05); 
+        }
+
+        .menu-tab {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 10px 25px;
+            margin: 0 10px;
+            color: var(--text-color);
+            transition: 0.3s;
+            border-bottom: 2px solid transparent; 
+            white-space: nowrap; 
+        }
+
+        .menu-tab:hover, .menu-tab.active {
+            font-weight: 700;
+            border-bottom: 2px solid var(--line-color); 
+            color: var(--text-color);
+        }
+
+        footer {
+            /* 讓 Footer 避免被選單遮擋 */
+            padding-bottom: 120px; 
+        }
+
+
+        /* --- RWD --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 40px; }
+            .info-grid, .split-section, .stats-grid, .comparison-grid { grid-template-columns: 1fr; }
+            .info-item, .stat-box, .split-left, .split-right { border-right: none; border-bottom: 1px solid var(--line-color); padding: 30px 20px; }
+            .project-hero { padding: 60px 20px; }
+            
+            .menu-tab {
+                padding: 10px 15px; 
+                font-size: 14px;
+            }
+            /* 👇 新增針對 Banner 的 RWD 修正 👇 */
+            .full-width-banner {
+                min-height: 40vh; /* 在手機上縮小高度，避免佔用過多螢幕 */
+                
+                /* 關鍵修正：將固定背景改回滾動，解決手機縮放問題 */
+                background-attachment: scroll; 
+            }
+            /* 👆 新增針對 Banner 的 RWD 修正 👆 */
+        }
+    </style>
+</head>
+<body>
+    
+    <nav class="bottom-menu">
+        <a href="#section-01" class="menu-tab">專案背景</a>
+        <a href="#section-02" class="menu-tab">使用者研究</a>
+        <a href="#section-03" class="menu-tab">重新設計</a>
+        <a href="#section-04" class="menu-tab">介面展示</a>
+    </nav>
+
+    <div class="container">
+        <header class="border-b">
+            <div class="logo">YA CHIEH LIU</div>
+            <a href="portfolio.html" class="back-btn">← BACK TO LIST</a>
+        </header>
+
+        <section class="project-hero border-b">
+            <span class="section-label">Selected Work / 2025</span>
+            <h1>Smarter ERP<br>System Design.</h1>
+            <p class="tagline">專為 SPA 產業打造的 B2B 後台管理系統，<br>整合進銷存、會員管理與預約排程的一站式解決方案。</p>
+        </section>
+
+        <section class="full-width-banner border-b">
+            </section>
+
+        <section class="meta-data-section border-b">
+            <div class="info-grid">
+                <div class="info-item border-r">
+                    <div class="info-title">專案團隊</div>
+                    <div>前端工程師(2人)<br>後端工程師(2人)<br>資料庫工程師(2人)<br>UI設計師(我)</div>
+                </div>
+                <div class="info-item border-r">
+                    <div class="info-title">專案時間</div>
+                    <div>2022.12 - 2025.01 持續迭代中</div>
+                </div>
+                <div class="info-item border-r">
+                    <div class="info-title">DURATION</div>
+                    <div>2022.12 - 2025.01</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-title">TEAM</div>
+                    <div>Frontend (2), Backend (2), UI (1)</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-01" class="split-section border-b">
+            <div class="split-left border-r">
+                01.<br>Background<br>& Challenge
+            </div>
+            <div class="split-right">
+                <span class="section-label">專案背景</span>
+                <p>Smarter 為台灣美容 SPA 產業的領導品牌，營運超過 30 年，擁有全台 20 家分店，並結合產品療程提供完整的 SPA 課程體驗。公司原本使用老舊後台系統管理課程與產品付款，但顧客在店內消費時仍依靠紙本諮詢表，會員資料與課程紀錄皆以紙本保存。隨著會員數量逐年增加，紙本紀錄與原系統逐漸無法支撐業務需求，造成操作效率低下。為改善此問題，公司決定著手開發 ERP 系統，將會員管理、課程預約、銷售管理及進銷存等流程全面電子化，整合店內操作與資料管理，提高營運效率。</p>
+                
+                <span class="section-label" style="margin-top: 40px;">核心問題 (Pain Points)</span>
+                <ul style="list-style-type: disc;">
+                    <li><strong>流程繁複：</strong>下單、付款、出貨跨多個畫面，新人學習成本極高。</li>
+                    <li><strong>系統過時：</strong>軟體架構老舊，經常當機，資料遺失風險高。</li>
+                    <li><strong>體驗斷層：</strong>店內消費依賴紙本，無法即時數據化，影響決策。</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="goals-results-section pad-box border-b">
+            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #111;">✒️ 商業目標</h3>
+            <ol style="list-style-type: decimal; margin-left: 20px; margin-bottom: 40px; font-size: 16px; color: #333;">
+                <li>整合會員、課程及產品資料，提升資料管理效率，降低紙本作業成本。</li>
+                <li>將店內消費與預約流程電子化，縮短操作時間並提升顧客體驗。</li>
+                <li>強化跨分店營運管理能力，提供即時數據支援決策。</li>
+                <li>提升課程與產品銷售轉換率，支持業務成長與會員留存。</li>
+            </ol>
+
+            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #111;">🎉 專案成果</h3>
+            <ol style="list-style-type: decimal; margin-left: 20px; font-size: 16px; color: #333;">
+                <li>將紙本流程全面電子化，會員資料、購買課程與消費紀錄 100% 系統化管理，紙本作業量減少 90% 以上。</li>
+                <li>ERP 系統整合進銷存、銷售、會員與預約管理模組，日常操作效率提升 30%，資料錯誤率降低 40%。</li>
+                <li>員工日常操作流程簡化，平均操作時間縮短 25%，重複性作業顯著減少。</li>
+                <li>管理者可即時取得跨店營運數據，報表整理時間縮短 50%，決策效率明顯提升。</li>
+            </ol>
+        </section>
+
+        <section class="stats-grid border-b">
+            <div class="stat-box">
+                <div class="stat-number count-up" data-target="90">0%</div>
+                <div class="stat-desc">紙本作業減少<br>全面無紙化管理</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number count-up" data-target="30">0%</div>
+                <div class="stat-desc">日常操作效率提升<br>流程簡化與自動化</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number count-up" data-target="40">0%</div>
+                <div class="stat-desc">資料錯誤率降低<br>系統自動檢核防錯</div>
+            </div>
+        </section>
+
+        <section id="section-02" class="split-section border-b">
+            <div class="split-left border-r">
+                02.<br>Research<br>& Architecture
+            </div>
+            <div class="split-right">
+                <span class="section-label">使用者研究</span>
+                <p>針對「芳療師」、「店經理」、「總部主管」進行訪談。發現第一線芳療師在「課程銷售」與「結帳」流程中感到最強烈的挫折感。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://images.plurk.com/3YbH6JI795Flxn8K8BFVSc.png" alt="User Journey Map">
+                </div>
+                <p class="img-caption">▲ 芳療師使用者旅程地圖：找出銷售與結帳的痛點</p>
+
+                <br><br>
+                <span class="section-label">系統架構規劃</span>
+                <p>重新梳理舊有架構，規劃出 6 大核心模組，包含超過 300 個功能節點。我們將「購買單」作為核心節點，串聯前後台資料流。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://images.plurk.com/3YbH6JI795Flxn8K8BFVSc.png" alt="Information Architecture">
+                </div>
+            </div>
+        </section>
+
+        <section id="section-03" class="pad-box border-b" style="background: #fff;">
+            <span class="section-label">03. Solution - 購買流程重塑</span>
+            <h2 style="font-size: 32px; margin-bottom: 40px;">從卡頓到流暢：一體化的購買體驗</h2>
+            
+            <div class="comparison-grid">
+                <div class="comp-box" style="background: #FFF5F5;">
+                    <span class="comp-title" style="color: #D32F2F;">🔴 Before 舊系統問題</span>
+                    <ul>
+                        <li>須在購買、消耗、付款三個模組間來回切換。</li>
+                        <li>操作步驟冗長，容易當機導致資料遺失。</li>
+                        <li>介面擁擠，不適合 iPad 橫向操作。</li>
+                    </ul>
+                </div>
+                <div class="comp-box" style="background: #F0F9FF;">
+                    <span class="comp-title" style="color: #0288D1;">🔵 After 新版設計</span>
+                    <ul>
+                        <li><strong>單頁面完成：</strong>將所有操作整合為單一流程，無須跳轉。</li>
+                        <li><strong>右側活動查詢：</strong>新增優惠查詢欄位，輔助銷售。</li>
+                        <li><strong>iPad 適配：</strong>重新規劃佈局，符合門市橫向操作習慣。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <div class="img-placeholder">
+                     <img src="https://static.wixstatic.com/media/dafa39_47f7da13bc334f40a2edd06a7cfac06b~mv2.png/v1/fill/w_633,h_786,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/dafa39_47f7da13bc334f40a2edd06a7cfac06b~mv2.png" alt="New Purchasing Flow UI">
+                </div>
+                <p class="img-caption">▲ 新版購買單介面：整合明細、金額與活動查詢於同一畫面</p>
+            </div>
+        </section>
+
+        <section id="section-04" class="pad-box border-b">
+            <span class="section-label">04. Interface Showcase</span>
+            <h2 style="font-size: 32px; margin-bottom: 40px;">關鍵功能介面展示</h2>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div>
+                    <div class="img-placeholder">
+                        <img src="https://static.wixstatic.com/media/dafa39_cc4e6da12b9f41c7b52dbd313f681452~mv2.gif" alt="Member Management">
+                    </div>
+                    <h3 style="margin-top: 10px; font-weight: 700;">會員管理介面</h3>
+                    <p style="font-size: 14px; color: #666;">快速查看點數、消費紀錄，並可一鍵發起銷售。</p>
+                </div>
+
+                <div>
+                    <div class="img-placeholder">
+                         <img src="https://static.wixstatic.com/media/dafa39_538d112e5aad4cc287e45ab40f94c290~mv2.gif" alt="Sales Distribution">
+                    </div>
+                    <h3 style="margin-top: 10px; font-weight: 700;">業績分配系統</h3>
+                    <p style="font-size: 14px; color: #666;">支援多筆訂單批次分配，即時計算剩餘金額。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="split-section border-b">
+            <div class="split-left border-r">
+                05.<br>Reflection
+            </div>
+            <div class="split-right">
+                <p>身為專案中唯一的設計師，我學到了如何在需求變動下保持設計一致性。這個 ERP 專案不僅是介面的優化，更是對內部工作流程的全面體檢。</p>
+                <p>透過上線後的數據追蹤（操作難度從 25% 降至 10%），證明了以數據驅動（Data-Driven）的設計迭代，能真正為企業帶來長期的營運效益。</p>
+            </div>
+        </section>
+
+        <footer style="padding: 60px 40px; text-align: center;">
+            <p style="margin-bottom: 20px; opacity: 0.5;">Next Project</p>
+            <a href="#" style="font-size: 24px; font-weight: 900; border-bottom: 2px solid #000;">CMSinmeet 交友軟體 ↗</a>
+            <br><br><br>
+            <a href="portfolio.html" style="font-size: 14px; color: #666;">← Back to Home</a>
+        </footer>
+    </div>
+
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsGrid = document.querySelector('.stats-grid');
+            const counters = document.querySelectorAll('.count-up');
+            
+            // 標記：確保動畫只執行一次
+            let isExecuted = false; 
+
+            // 核心計數動畫函數
+            const animateCounter = (counter) => {
+                const target = parseInt(counter.getAttribute('data-target')); // 取得目標數字 (90, 30, 40)
+                const duration = 1500; // 動畫總時長 (1.5 秒)
+                let startTimestamp;
+
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const elapsed = timestamp - startTimestamp;
+                    const progress = Math.min(elapsed / duration, 1); // 0 到 1 的進度條
+                    
+                    const currentValue = Math.floor(progress * target);
+                    
+                    // 這裡統一加上百分號 %
+                    const suffix = '%'; 
+                    
+                    counter.textContent = currentValue + suffix;
+
+                    if (progress < 1) {
+                        // 繼續下一幀動畫
+                        window.requestAnimationFrame(step);
+                    } else {
+                        // 動畫結束時確保數字為目標數字
+                        counter.textContent = target + suffix; 
+                    }
+                };
+
+                window.requestAnimationFrame(step);
+            };
+
+            // 使用 Intersection Observer 偵測區塊進入視窗
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    // 當區塊進入視圖 (50% 可見) 且動畫未執行過
+                    if (entry.isIntersecting && !isExecuted) {
+                        counters.forEach(animateCounter); // 對所有數字啟動動畫
+                        isExecuted = true;
+                        observer.unobserve(statsGrid); // 停止觀察，確保只跑一次
+                    }
+                });
+            }, {
+                threshold: 0.5 // 區塊 50% 可見時觸發
+            });
+
+            // 開始觀察 stats-grid 區塊
+            if (statsGrid) {
+                observer.observe(statsGrid);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+</body>
+</html>
