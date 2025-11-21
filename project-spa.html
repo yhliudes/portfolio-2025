@@ -104,7 +104,7 @@
         .comp-box { background: #fff; padding: 30px; border: 1px solid #eee; }
         .comp-title { font-weight: 700; margin-bottom: 15px; display: block; }
 
-        /* 問題與解決方案 Grid (修正點 4) */
+        /* 問題與解決方案 Grid */
         .problem-solution-grid {
             display: grid; 
             grid-template-columns: 1fr 1fr; 
@@ -148,7 +148,7 @@
             text-align: right;
         }
 
-        /* 底部導覽列 (修正點 1) */
+        /* 底部導覽列 */
         .bottom-menu {
             position: fixed;
             bottom: 0;
@@ -191,7 +191,7 @@
             color: var(--text-color);
         }
 
-        /* Tab 切換樣式 (修正點 5) */
+        /* Tab 切換樣式 */
         .tabs-header {
             display: flex;
             border-bottom: 1px solid #ddd;
@@ -229,7 +229,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* 燈箱樣式 (修正點 3) */
+        /* 燈箱樣式 */
         .lightbox {
             position: fixed;
             top: 0;
@@ -260,6 +260,7 @@
 
         footer { padding-bottom: 120px; }
 
+        /* === RWD 手機版 (768px) 修正區塊 === */
         @media (max-width: 768px) {
             h1 { font-size: 40px; }
             .info-grid, .split-section, .stats-grid, .comparison-grid { grid-template-columns: 1fr; }
@@ -280,6 +281,15 @@
             
             /* Tab 標題在手機上也可以滑動 */
             .tabs-header { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+            /* ⭐ 修正 02. Research 區塊跑版問題 ⭐ */
+            #section-02 .split-right {
+                width: 100%;
+                overflow-x: hidden; /* 確保內容不會超出畫面造成全頁水平捲動 */
+            }
+            .img-placeholder {
+                width: 100%; /* 確保圖片容器在手機上佔滿父層寬度 */
+            }
         }
     </style>
 </head>
@@ -753,7 +763,7 @@
                     <img src="./images/erp/survey_speed.png" alt="系統速度調查">
                 </div>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-top: 15px;">
-                    <li><strong>速度仍是瓶頸：</strong> 儘管設計流程已改善，但有 10 位使用者仍回饋系統速度「緩慢」或「慢」。</li>
+                    <li><strong>速度仍是瓶頸：</strong> 儘管設計流程已改善，但有 10 位使用者仍回報系統速度「緩慢」或「慢」。</li>
                     <li><strong>未來核心：</strong> 系統後端性能與載入速度是下一階段最優先需要處理的核心問題，以全面提升使用者體驗。</li>
                 </ul>
 
