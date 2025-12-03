@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StarWalker 星皮秒雷射 | 詩嫚特醫美診所</title>
+    <style>
+        /* --- 基礎設定 --- */
+        :root {
+            --primary-color: #bfa065; /* 奢華金 */
+            --text-color: #333;
+            --bg-light: #f9f9f9;
+            --line-green: #06c755;
+            --urgent-red: #e74c3c;
+            --cta-blue: #007bff;
+        }
+
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-bottom: 70px; /* 為了避開手機底部懸浮選單 */
+        }
+
+        h1, h2, h3 { margin: 0; font-weight: bold; }
+        a { text-decoration: none; }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- 1. 首屏 Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://placehold.co/1200x600/333/999?text=Clinic+Background');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        .price-box {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 400px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .price-original { text-decoration: line-through; color: #888; font-size: 0.9rem; }
+        .price-final { font-size: 2.5rem; color: var(--urgent-red); font-weight: bold; line-height: 1; }
+        .price-badge { 
+            display: inline-block; 
+            background: var(--urgent-red); 
+            color: white; 
+            padding: 5px 10px; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+            margin-bottom: 10px;
+            animation: pulse 2s infinite;
+        }
+
+        .cta-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary-color);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            margin-top: 15px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .cta-btn:hover { background: #a38650; }
+
+        /* --- 2. 案例見證區 --- */
+        .section { padding: 40px 20px; text-align: center; }
+        .bg-gray { background-color: var(--bg-light); }
+
+        .ba-gallery img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .review-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 5px solid var(--primary-color);
+            text-align: left;
+        }
+        .stars { color: #f1c40f; letter-spacing: 2px; }
+
+        /* --- 3. 安心保證 --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .feature-item {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .check-icon { color: var(--line-green); font-weight: bold; }
+
+        /* --- 4. Q&A --- */
+        .qa-item {
+            background: white;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: left;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .qa-q { font-weight: bold; color: var(--primary-color); }
+
+        /* --- 5. 終極預約區 (Conversion Hub) --- */
+        .booking-hub {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .btn-line { background-color: var(--line-green); }
+        .btn-line:hover { background-color: #05b34c; }
+        
+        .btn-phone { background-color: var(--cta-blue); }
+        .btn-phone:hover { background-color: #0069d9; }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 20px 0;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+        .divider:not(:empty)::before { margin-right: .25em; }
+        .divider:not(:empty)::after { margin-left: .25em; }
+
+        .simple-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* 修正寬度計算 */
+        }
+
+        /* --- 手機版懸浮按鈕 --- */
+        .sticky-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        .sticky-btn {
+            flex: 1;
+            text-align: center;
+            padding: 15px 0;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* 動畫 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* RWD 調整 */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .price-final { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h3>詩嫚特醫美診所</h3>
+            <h1>StarWalker 星皮秒雷射</h1>
+            <p>擊退斑點・縮小毛孔・重現透亮美肌</p>
+
+            <div class="price-box">
+                <div class="price-badge">🔥 限時體驗｜本月剩 8 名</div>
+                <div>原價 <span class="price-original">NT$ 8,800</span></div>
+                <div class="price-final">NT$ 2,499</div>
+                <button class="cta-btn" onclick="scrollToBooking()">👉 立即搶佔優惠名額</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="section">
+        <div class="container">
+            <h2>見證奇蹟時刻</h2>
+            <p>不管是深層斑點還是毛孔粗大，一次就有感</p>
+            
+            <div class="ba-gallery">
+                <img src="https://placehold.co/600x400/dddddd/555?text=Before+%26+After+Photo" alt="皮秒雷射前後對比">
+            </div>
+
+            <div class="review-box">
+                <div class="stars">⭐⭐⭐⭐⭐ 4.9分 (237則評價)</div>
+                <p style="margin: 10px 0; font-style: italic;">"原本很擔心雷射會痛，結果過程很舒適，醫師也很溫柔。重點是打完才一週，斑點真的淡好多！CP值超高！"</p>
+                <div style="text-align: right; color: #666; font-size: 0.9rem;">- 台北 王小姐 (28歲)</div>
+            </div>
+
+            <button class="cta-btn" style="background-color: #555; margin-top: 20px;" onclick="scrollToBooking()">✨ 我也想改善膚質，立即預約</button>
+        </div>
+    </section>
+
+    <section class="section bg-gray">
+        <div class="container">
+            <h2>為何選擇我們？安心變美 4 大保證</h2>
+            <div class="features-grid">
+                <div class="feature-item"><span class="check-icon">✓</span> 無痛技術<br><small>恢復期短</small></div>
+                <div class="feature-item"><span class="check-icon">✓</span> 專業醫師<br><small>親自操作</small></div>
+                <div class="feature-item"><span class="check-icon">✓</span> 價格透明<br><small>絕不強迫推銷</small></div>
+                <div class="feature-item"><span class="check-icon">✓</span> 不滿意退費<br><small>無效全額退款</small></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2>常見疑問 Q&A</h2>
+            <div class="qa-item">
+                <div class="qa-q">Q: 打完會不會反黑？</div>
+                <div class="qa-a">A: StarWalker 採用最新光震波技術，大幅降低熱能累積，反黑機率極低，術後保濕防曬做好即可。</div>
+            </div>
+            <div class="qa-item">
+                <div class="qa-q">Q: 需要做幾次才有效？</div>
+                <div class="qa-a">A: 第一次施打肌膚亮度即有明顯提升。深層斑點建議 3-6 次療程效果最佳。</div>
+            </div>
+            
+            <p style="margin-top: 20px;">還有其他問題？直接問醫生最快！</p>
+            <a href="#" class="cta-btn btn-line" style="display:inline-block; width:auto; padding: 10px 30px;">📱 LINE 專人解答</a>
+        </div>
+    </section>
+
+    <section class="section bg-gray" id="booking-section">
+        <div class="container">
+            <h2 style="color: var(--urgent-red);">最後機會！搶佔 $2,499 優惠</h2>
+            <p>請選擇您最方便的方式預約：</p>
+
+            <div class="booking-hub">
+                <a href="https://line.me/ti/p/@all1852n" target="_blank" class="cta-btn btn-line">
+                    📱 LINE 立即預約諮詢
+                    <div style="font-size: 0.8rem; font-weight: normal;">(最推薦！專人即時回覆)</div>
+                </a>
+
+                <div style="height: 15px;"></div>
+
+                <a href="tel:0227187779" class="cta-btn btn-phone">
+                    ☎️ 直接撥打預約 (02-2718-7779)
+                </a>
+
+                <div class="divider">或填寫表單，由我們聯繫您</div>
+
+                <form class="simple-form" onsubmit="alert('感謝您的預約！專員將在 1 小時內聯繫您。'); return false;">
+                    <input type="text" placeholder="您的姓名" required>
+                    <input type="tel" placeholder="手機號碼" required>
+                    <button type="submit" class="cta-btn" style="background-color: #333;">📝 送出預約申請</button>
+                </form>
+                <div style="font-size: 0.8rem; color: #888; margin-top: 10px;">🔒 您的資料將嚴格保密，僅供預約聯繫使用。</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="sticky-footer">
+        <a href="https://line.me/ti/p/@all1852n" class="sticky-btn" style="background-color: #06c755;">
+            LINE 諮詢
+        </a>
+        <a href="#booking-section" onclick="scrollToBooking()" class="sticky-btn" style="background-color: #e74c3c;">
+            立即預約 $2499
+        </a>
+    </div>
+
+    <script>
+        function scrollToBooking() {
+            document.getElementById('booking-section').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>

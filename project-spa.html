@@ -12,12 +12,22 @@
             --text-color: #111111;
             --line-color: #000000;
             --active-color: #000000;
+            --highlight-color: #FC4D0F;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', 'Noto Sans TC', sans-serif; line-height: 1.6; }
         a { text-decoration: none; color: inherit; }
         img { max-width: 100%; display: block; }
+
+        /* 重點標記樣式 */
+        .highlight-text {
+            color: var(--highlight-color);
+            text-decoration: underline;
+            text-decoration-color: var(--highlight-color);
+            text-underline-offset: 3px;
+            font-weight: 600;
+        }
 
         .container {
             max-width: 1600px;
@@ -37,9 +47,38 @@
         .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
         .back-btn:hover { background: #000; color: #fff; }
 
-        .project-hero { padding: 100px 40px 60px; }
-        h1 { font-size: 64px; line-height: 1.1; font-weight: 900; margin-bottom: 40px; text-transform: uppercase; }
-        .tagline { font-size: 20px; font-weight: 500; color: #555; max-width: 600px; }
+        .project-hero { padding: 80px 40px 40px; }
+        h1 { font-size: 48px; line-height: 1.1; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
+        .tagline { font-size: 18px; font-weight: 500; color: #555; max-width: 600px; margin-bottom: 20px; }
+
+        /* Highlight 區塊樣式 */
+        .highlight-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 50px 40px;
+            margin: 0;
+        }
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .highlight-item {
+            text-align: center;
+        }
+        .highlight-number {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+        .highlight-desc {
+            font-size: 15px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
 
         .full-width-banner {
             padding: 0;
@@ -57,16 +96,12 @@
         .info-title { font-weight: 700; margin-bottom: 8px; opacity: 0.6; }
 
         .split-section { display: grid; grid-template-columns: 1fr 2fr; }
-        .split-left { padding: 60px 40px; font-weight: 700; font-size: 24px; }
+        .split-left { padding: 60px 40px; font-weight: 700; font-size: 28px; line-height: 1.3; }
+        .split-subtitle { font-size: 14px; font-weight: 500; opacity: 0.5; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
         .split-right { padding: 60px 40px; font-size: 16px; color: #333; }
         .split-right p { margin-bottom: 20px; text-align: justify; }
         .split-right ul { margin-left: 20px; margin-bottom: 20px; }
         .split-right li { margin-bottom: 10px; }
-
-        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); background: #000; color: #fff; }
-        .stat-box { padding: 60px 40px; border-right: 1px solid #333; text-align: center; }
-        .stat-number { font-size: 60px; font-weight: 900; line-height: 1; margin-bottom: 10px; color: #fff; }
-        .stat-desc { font-size: 14px; opacity: 0.8; }
 
         /* 圖片容器樣式調整 */
         .img-placeholder { 
@@ -81,7 +116,7 @@
             color: #666; 
             border: none;
             margin-bottom: 20px;
-            cursor: zoom-in; /* 提示可點擊放大 */
+            cursor: zoom-in;
             overflow: hidden;
         }
         .img-placeholder img { 
@@ -92,10 +127,9 @@
             transition: transform 0.3s ease;
         }
         .img-placeholder:hover img {
-            transform: scale(1.02); /* 滑鼠懸停微放大效果 */
+            transform: scale(1.02);
         }
         
-        /* Section 04 的圖片加上圓角 */
         #section-04 .img-placeholder img { border-radius: 30px; }
         
         .img-caption { font-size: 14px; color: #666; text-align: center; margin-top: 10px; }
@@ -110,6 +144,180 @@
             grid-template-columns: 1fr 1fr; 
             gap: 30px; 
             margin-bottom: 40px;
+        }
+
+        /* 表格樣式 */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            font-size: 15px;
+        }
+        .comparison-table th {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: left;
+            font-weight: 700;
+            border-bottom: 2px solid #ddd;
+        }
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        .comparison-table tr:hover {
+            background: #fafafa;
+        }
+        .role-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        /* Before/After 滑動比較樣式 - 修正版 */
+        .before-after-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            margin: 40px 0;
+            overflow: hidden;
+        }
+        
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            user-select: none;
+        }
+        
+        .comparison-item {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .comparison-item.after {
+            z-index: 1;
+        }
+        
+        .comparison-item.before {
+            z-index: 2;
+        }
+        
+        .comparison-label {
+            position: absolute;
+            top: 20px;
+            padding: 8px 20px;
+            font-weight: 700;
+            font-size: 14px;
+            border-radius: 20px;
+            z-index: 4;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .comparison-label.before {
+            left: 20px;
+            background: #D32F2F;
+            color: #fff;
+        }
+        
+        .comparison-label.after {
+            right: 20px;
+            background: #0288D1;
+            color: #fff;
+        }
+        
+        .comparison-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), transparent);
+            color: #fff;
+            padding: 30px;
+            z-index: 3;
+        }
+        
+        .comparison-content h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .comparison-content ul {
+            list-style: none;
+            padding: 0;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+        
+        .comparison-content ul li:before {
+            content: "• ";
+            margin-right: 8px;
+        }
+        
+        .comparison-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+        
+        .comparison-slider-handle {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #fff;
+            cursor: ew-resize;
+            z-index: 5;
+            transform: translateX(-50%);
+        }
+        
+        .comparison-slider-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: ew-resize;
+            pointer-events: none;
+        }
+        
+        .comparison-slider-button:before,
+        .comparison-slider-button:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+        
+        .comparison-slider-button:before {
+            border-width: 8px 12px 8px 0;
+            border-color: transparent #333 transparent transparent;
+            left: 12px;
+        }
+        
+        .comparison-slider-button:after {
+            border-width: 8px 0 8px 12px;
+            border-color: transparent transparent transparent #333;
+            right: 12px;
         }
 
         /* 對話框樣式 */
@@ -161,13 +369,11 @@
             z-index: 999; 
             padding: 10px 0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-            /* 讓內容過長時可以滾動 */
             overflow-x: auto; 
             white-space: nowrap;
-            -webkit-overflow-scrolling: touch; /* iOS 流暢滾動 */
+            -webkit-overflow-scrolling: touch;
         }
         
-        /* 隱藏導覽列卷軸 */
         .bottom-menu::-webkit-scrollbar {
             display: none;
         }
@@ -182,7 +388,7 @@
             transition: 0.3s;
             border-bottom: 2px solid transparent; 
             white-space: nowrap;
-            flex-shrink: 0; /* 防止被壓縮 */
+            flex-shrink: 0;
         }
 
         .menu-tab:hover, .menu-tab.active {
@@ -262,33 +468,42 @@
 
         /* === RWD 手機版 (768px) 修正區塊 === */
         @media (max-width: 768px) {
-            h1 { font-size: 40px; }
-            .info-grid, .split-section, .stats-grid, .comparison-grid { grid-template-columns: 1fr; }
-            .info-item, .stat-box, .split-left, .split-right { border-right: none; border-bottom: 1px solid var(--line-color); padding: 30px 20px; }
+            h1 { font-size: 36px; }
+            .highlight-grid { grid-template-columns: 1fr; gap: 30px; }
+            .highlight-number { font-size: 42px; }
+            .info-grid, .split-section, .comparison-grid { grid-template-columns: 1fr; }
+            .info-item, .split-left, .split-right { border-right: none; border-bottom: 1px solid var(--line-color); padding: 30px 20px; }
             .project-hero { padding: 60px 20px; }
             .menu-tab { padding: 8px 10px; font-size: 12px; margin: 0 2px; }
             .full-width-banner { min-height: 40vh; background-attachment: scroll; }
             
-            /* 修正點 1: 手機版導覽列靠左對齊，方便滑動 */
             .bottom-menu { justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
 
-            /* 修正點 2: 手機版圖片完整顯示 */
             .img-placeholder { min-height: auto; height: auto; }
             .img-placeholder img { min-height: auto; object-fit: contain; }
             
-            /* 修正點 4: 問題與解決方案變成單欄 */
             .problem-solution-grid { grid-template-columns: 1fr; gap: 20px; }
             
-            /* Tab 標題在手機上也可以滑動 */
             .tabs-header { overflow-x: auto; -webkit-overflow-scrolling: touch; }
 
-            /* ⭐ 修正 02. Research 區塊跑版問題 ⭐ */
             #section-02 .split-right {
                 width: 100%;
-                overflow-x: hidden; /* 確保內容不會超出畫面造成全頁水平捲動 */
+                overflow-x: hidden;
             }
             .img-placeholder {
-                width: 100%; /* 確保圖片容器在手機上佔滿父層寬度 */
+                width: 100%;
+            }
+
+            .comparison-table {
+                font-size: 13px;
+            }
+            .comparison-table th,
+            .comparison-table td {
+                padding: 15px 10px;
+            }
+
+            .comparison-slider {
+                height: 400px;
             }
         }
     </style>
@@ -302,7 +517,9 @@
 
     <nav class="bottom-menu">
         <a href="#section-01" class="menu-tab">01.背景</a>
+        <a href="#section-015" class="menu-tab">01.5.問題與解決方案</a>
         <a href="#section-02" class="menu-tab">02.研究</a>
+        <a href="#section-025" class="menu-tab">02.5.系統架構</a>
         <a href="#section-03" class="menu-tab">03.解決方案</a>
         <a href="#section-035" class="menu-tab">03.5.UI KIT</a>
         <a href="#section-04" class="menu-tab">04.介面展示</a>
@@ -319,7 +536,25 @@
         <section class="project-hero border-b">
             <span class="section-label">Selected Work / 2025</span>
             <h1>Smarter ERP<br>System Design.</h1>
-            <p class="tagline">專為 SPA 產業打造的 B2B 後台管理系統，<br>整合進銷存、會員管理與預約排程的一站式解決方案。</p>
+            <p class="tagline">專為 SPA 產業打造的 B2B 後台管理系統，整合進銷存、會員管理與預約排程的一站式解決方案。</p>
+        </section>
+
+        <!-- Highlight 成果區塊 - 更新數值 -->
+        <section class="highlight-section border-b">
+            <div class="highlight-grid">
+                <div class="highlight-item">
+                    <div class="highlight-number count-up" data-target="300" data-suffix="+">0+</div>
+                    <div class="highlight-desc">使用人數<br>芳療師與內部員工</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number count-up" data-target="6" data-suffix="">0</div>
+                    <div class="highlight-desc">跨單位整合<br>6 大核心模組</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-number count-up" data-target="60" data-suffix="%">0%</div>
+                    <div class="highlight-desc">電子化上升<br>導入會員電子化 1.7 萬人</div>
+                </div>
+            </div>
         </section>
 
         <section class="full-width-banner border-b"></section>
@@ -327,274 +562,292 @@
         <section class="meta-data-section border-b">
             <div class="info-grid">
                 <div class="info-item border-r">
-                    <div class="info-title">專案團隊</div>
-                    <div>前端工程師(2人)<br>後端工程師(2人)<br>資料庫工程師(2人)<br>UI設計師（我）</div>
-                </div>
-                <div class="info-item border-r">
-                    <div class="info-title">專案時間</div>
-                    <div>2022.12 - 2025.01<br>持續迭代中</div>
+                    <div class="info-title">專案簡介</div>
+                    <div>支援超過 200 位芳療師與內部員工高效管理。系統涵蓋預約排程、進銷存系統、會員管理、銷售管理等功能，並以直觀的介面與響應式設計，提升操作流暢度與使用體驗，同時確保內部流程的協作效率與準確性。</div>
                 </div>
                 <div class="info-item border-r">
                     <div class="info-title">負責任務</div>
                     <div>研究調查<br>介面設計<br>原型製作<br>改版策略<br>系統測試</div>
                 </div>
+                <div class="info-item border-r">
+                    <div class="info-title">專案團隊</div>
+                    <div>前端工程師(2人)<br>後端工程師(2人)<br>資料庫工程師(2人)<br>UI設計師（我）</div>
+                </div>
                 <div class="info-item">
-                    <div class="info-title">專案簡介</div>
-                    <div>支援超過 200 位芳療師與內部員工高效管理。系統涵蓋預約排程、進銷存系統、會員管理、銷售管理等功能，並以直觀的介面與響應式設計，提升操作流暢度與使用體驗，同時確保內部流程的協作效率與準確性。</div>
+                    <div class="info-title">專案時間</div>
+                    <div>2022.12 - 2025.01<br>持續迭代中</div>
                 </div>
             </div>
         </section>
 
         <section id="section-01" class="split-section border-b">
             <div class="split-left border-r">
-                01.<br>Background<br>& Challenge
+                專案背景
+                <div class="split-subtitle">01. Background & Challenge</div>
             </div>
             <div class="split-right">
-                <span class="section-label">專案背景</span>
-                <p>Smarter 為台灣美容 SPA 產業的領導品牌，營運超過 30 年，擁有全台 20 家分店，並結合產品療程提供完整的 SPA 課程體驗。公司原本使用老舊後台系統管理課程與產品付款，但顧客在店內消費時仍依靠紙本諮詢表，會員資料與課程紀錄皆以紙本保存。隨著會員數量逐年增加，紙本紀錄與原系統逐漸無法支撐業務需求，造成操作效率低下。為改善此問題，公司決定著手開發 ERP 系統，將會員管理、課程預約、銷售管理及進銷存等流程全面電子化，整合店內操作與資料管理，提高營運效率。</p>
+                <p>Smarter 為<span class="highlight-text">台灣美容 SPA 產業的領導品牌</span>，營運超過 30 年，擁有<span class="highlight-text">全台 20 家分店</span>，並結合產品療程提供完整的 SPA 課程體驗。公司原本使用老舊後台系統管理課程與產品付款，但顧客在店內消費時仍依靠紙本諮詢表，會員資料與課程紀錄皆以紙本保存。隨著會員數量逐年增加，紙本紀錄與原系統逐漸無法支撐業務需求，造成操作效率低下。為改善此問題，公司決定著手開發 ERP 系統，將<span class="highlight-text">會員管理、課程預約、銷售管理及進銷存等流程全面電子化</span>，整合店內操作與資料管理，提高營運效率。</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">商業目標</h3>
+                <ol style="list-style-type: decimal; margin-left: 20px; margin-bottom: 40px; font-size: 16px; color: #333;">
+                    <li>整合會員、課程及產品資料，提升資料管理效率，降低紙本作業成本。</li>
+                    <li>將店內消費與預約流程電子化，縮短操作時間並提升顧客體驗。</li>
+                    <li>強化跨分店營運管理能力，提供即時數據支援決策。</li>
+                    <li>提升課程與產品銷售轉換率，支持業務成長與會員留存。</li>
+                </ol>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">專案成果</h3>
+                <ul style="list-style-type: disc; margin-left: 20px; font-size: 16px; color: #333;">
+                    <li>將紙本流程全面電子化，會員資料、購買課程與消費紀錄 <span class="highlight-text">100% 系統化管理</span>，<span class="highlight-text">紙本作業量減少 90% 以上</span>。</li>
+                    <li>ERP 系統整合進銷存、銷售、會員與預約管理模組，<span class="highlight-text">日常操作效率提升 30%</span>，資料錯誤率降低 40%。</li>
+                    <li>員工日常操作流程簡化，<span class="highlight-text">平均操作時間縮短 25%</span>，重複性作業顯著減少。</li>
+                    <li>管理者可即時取得跨店營運數據，報表整理時間縮短 50%，決策效率明顯提升。</li>
+                </ul>
             </div>
         </section>
-        
-        <section class="goals-results-section pad-box border-b">
-            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #111;">💡 問題點與解決方案</h3>
-            
-            <div class="problem-solution-grid">
-                <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 流程繁複</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>下單、付款、出貨需要跨多個畫面，操作冗長</li>
-                        <li>新人需要花數週才能熟悉基本操作</li>
-                    </ul>
-                </div>
-                <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 流程簡化與自動化</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>重新設計關鍵任務流程（購買、付款、消耗）</li>
-                        <li>讓操作可在單一頁面完成，降低學習成本</li>
-                    </ul>
-                </div>
+
+        <!-- 問題點與解決方案 -->
+        <section id="section-015" class="split-section border-b">
+            <div class="split-left border-r">
+                問題與解決方案
+                <div class="split-subtitle">01.5 Problem & Solution</div>
             </div>
-
-            <div class="problem-solution-grid">
-                <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 系統過時</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>軟體架構老舊，效能低</li>
-                        <li>使用過程中經常當機，需要重新開啟才能繼續工作</li>
-                    </ul>
+            <div class="split-right">
+                <p style="margin-bottom: 40px; font-size: 16px; color: #666;">在初步分析舊有後台系統的介面與流程後，歸納幾項對使用者體驗影響最為重大的問題點。這些問題不僅降低了操作效率，也對員工留任與公司營運造成不良影響。為解決此狀況，我針對使用者與公司的需求，制定了對應的改善策略。</p>
+                
+                <div class="problem-solution-grid">
+                    <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 流程繁複</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li>下單、付款、出貨需要<span class="highlight-text">跨多個畫面</span>，操作冗長</li>
+                            <li>新人需要花<span class="highlight-text">數週才能熟悉</span>基本操作</li>
+                        </ul>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 流程簡化與自動化</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li>重新設計關鍵任務流程（購買、付款、消耗）</li>
+                            <li>讓操作可在<span class="highlight-text">單一頁面完成</span>，降低學習成本</li>
+                        </ul>
+                    </div>
                 </div>
-                <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 採用 Web-based ERP</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>跨平台可用（桌機/iPad）</li>
-                        <li>改善系統穩定度，避免頻繁當機</li>
-                    </ul>
+
+                <div class="problem-solution-grid">
+                    <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 系統過時</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li>軟體架構老舊，效能低</li>
+                            <li>使用過程中<span class="highlight-text">經常當機</span>，需要重新開啟才能繼續工作</li>
+                        </ul>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 採用 Web-based ERP</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li><span class="highlight-text">跨平台可用</span>（桌機/iPad）</li>
+                            <li>改善系統穩定度，避免頻繁當機</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <div class="problem-solution-grid">
-                <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 使用者體驗差</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>後台軟體難上手，新進員工學習成本過高</li>
-                        <li>有些新人甚至因「系統太難用」而選擇離職</li>
-                    </ul>
+                <div class="problem-solution-grid">
+                    <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 使用者體驗差</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li>後台軟體難上手，<span class="highlight-text">新進員工學習成本過高</span></li>
+                            <li>有些新人甚至因「系統太難用」而選擇離職</li>
+                        </ul>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 降低學習門檻</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li>設計<span class="highlight-text">直覺介面</span>，符合不同部門的使用習慣</li>
+                            <li>提供逐步引導與教育訓練幫助新人快速上手</li>
+                        </ul>
+                    </div>
                 </div>
-                <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 降低學習門檻</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>設計直覺介面，符合不同部門的使用習慣</li>
-                        <li>提供逐步引導與教育訓練幫助新人快速上手</li>
-                    </ul>
+
+                <div class="problem-solution-grid">
+                    <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 維護困難</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li>程式碼與資料結構複雜，<span class="highlight-text">技術債沉重</span></li>
+                            <li>想新增功能需要高成本客製，開發週期過長</li>
+                        </ul>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
+                        <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 建立模組化架構</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
+                            <li><span class="highlight-text">模組化系統</span>，便於維護與功能擴充</li>
+                            <li>自行開發，減少日後需求變更的開發成本</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
-            <div class="problem-solution-grid">
-                <div style="background: #FFF5F5; padding: 25px; border-left: 4px solid #D32F2F;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #D32F2F;">❌ 維護困難</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>程式碼與資料結構複雜，技術債沉重</li>
-                        <li>想新增功能需要高成本客製，開發週期過長</li>
-                    </ul>
-                </div>
-                <div style="background: #E8F5E9; padding: 25px; border-left: 4px solid #4CAF50;">
-                    <h4 style="font-weight: 700; margin-bottom: 15px; color: #4CAF50;">✅ 建立模組化架構</h4>
-                    <ul style="list-style-type: disc; margin-left: 20px; font-size: 14px;">
-                        <li>模組化系統，便於維護與功能擴充</li>
-                        <li>自行開發，減少日後需求變更的開發成本</li>
-                    </ul>
-                </div>
-            </div>
-
-            <p style="margin-top: 30px; font-size: 16px; color: #666; text-align: center; font-style: italic;">在初步分析舊有後台系統的介面與流程後，歸納幾項對使用者體驗影響最為重大的問題點。這些問題不僅降低了操作效率，也對員工留任與公司營運造成不良影響。為解決此狀況，我針對使用者與公司的需求，制定了對應的改善策略。</p>
-
-            <h3 style="font-size: 24px; font-weight: 700; margin-top: 60px; margin-bottom: 20px; color: #111;">✒️ 商業目標</h3>
-            <ol style="list-style-type: decimal; margin-left: 20px; margin-bottom: 40px; font-size: 16px; color: #333;">
-                <li>整合會員、課程及產品資料，提升資料管理效率，降低紙本作業成本。</li>
-                <li>將店內消費與預約流程電子化，縮短操作時間並提升顧客體驗。</li>
-                <li>強化跨分店營運管理能力，提供即時數據支援決策。</li>
-                <li>提升課程與產品銷售轉換率，支持業務成長與會員留存。</li>
-            </ol>
-
-            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #111;">🎉 專案成果</h3>
-            <ol style="list-style-type: decimal; margin-left: 20px; font-size: 16px; color: #333;">
-                <li>將紙本流程全面電子化，會員資料、購買課程與消費紀錄 100% 系統化管理，紙本作業量減少 90% 以上。</li>
-                <li>ERP 系統整合進銷存、銷售、會員與預約管理模組，日常操作效率提升 30%，資料錯誤率降低 40%。</li>
-                <li>員工日常操作流程簡化，平均操作時間縮短 25%，重複性作業顯著減少。</li>
-                <li>管理者可即時取得跨店營運數據，報表整理時間縮短 50%，決策效率明顯提升。</li>
-            </ol>
-        </section>
-
-        <section class="stats-grid border-b">
-            <div class="stat-box">
-                <div class="stat-number count-up" data-target="300" data-suffix="+">0+</div>
-                <div class="stat-desc">使用人數<br>芳療師與內部員工</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number count-up" data-target="6" data-suffix="">0</div>
-                <div class="stat-desc">跨單位整合<br>6 大核心模組</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-number count-up" data-target="100" data-suffix="%">0%</div>
-                <div class="stat-desc">系統化管理<br>導入會員電子化 1.7 萬人</div>
             </div>
         </section>
 
         <section id="section-02" class="split-section border-b">
             <div class="split-left border-r">
-                02.<br>Research<br>& User Study
+                使用者研究
+                <div class="split-subtitle">02. Research & User Study</div>
             </div>
             <div class="split-right">
-                <span class="section-label">使用者研究</span>
-                <p style="margin-bottom:30px;">在研究過程中，我針對三類主要使用者進行訪談與舊系統操作觀察。點擊下方標籤查看不同角色的痛點與需求：</p>
+                <p style="margin-bottom:30px;">在研究過程中，我針對<span class="highlight-text">三類主要使用者進行訪談與舊系統操作觀察</span>，透過深入了解不同角色的工作情境與痛點，找出設計改善的切入點。</p>
                 
-                <div class="tabs-container">
-                    <div class="tabs-header">
-                        <div class="tab-btn active" onclick="openTab(event, 'therapist')">🧖‍♀️ 芳療師 (第一線)</div>
-                        <div class="tab-btn" onclick="openTab(event, 'manager')">👔 店經理 (管理層)</div>
-                        <div class="tab-btn" onclick="openTab(event, 'hq')">📊 總部主管 (決策)</div>
-                    </div>
-
-                    <div id="therapist" class="tab-content active">
-                        <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">芳療師的核心痛點</h3>
-                        <p>在門市日常需同時服務顧客與處理紀錄，但舊有系統流程繁雜，操作步驟冗長，經常影響到服務效率。她們希望能有更直覺的操作介面，減少不必要的頁面切換，讓系統能真正輔助而非增加負擔。</p>
-                        <div style="background: #FFF5F5; padding: 20px; margin-top: 20px; border-left: 4px solid #D32F2F;">
-                             <p style="margin:0; font-weight:700; color: #D32F2F;">痛點：</p>
-                             <ul style="margin-top:10px; margin-left:20px;">
-                                 <li>一邊服務客人一邊操作電腦，速度慢會讓客人不耐煩。</li>
-                                 <li>結帳流程太常卡住，很怕算錯錢。</li>
-                             </ul>
-                        </div>
-                    </div>
-
-                    <div id="manager" class="tab-content">
-                        <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">店經理的管理難題</h3>
-                        <p>面臨跨門市的人員管理與權限分層難題。舊系統缺乏彈性的管理機制，使跨部門協作與數據掌握更加困難。他們需要一套能支援多層級權限設定，並且清楚呈現整體營運狀態的後台系統。</p>
-                        <div style="background: #E8F5E9; padding: 20px; margin-top: 20px; border-left: 4px solid #4CAF50;">
-                             <p style="margin:0; font-weight:700; color: #4CAF50;">需求：</p>
-                             <ul style="margin-top:10px; margin-left:20px;">
-                                 <li>需要一眼就能看到今天的業績狀況。</li>
-                                 <li>權限設定要更靈活，不要讓新人看到敏感資料。</li>
-                             </ul>
-                        </div>
-                    </div>
-
-                    <div id="hq" class="tab-content">
-                        <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">總部主管的決策需求</h3>
-                        <p>負責人員排班、績效追蹤以及每日營運數據統整，但在現有系統下難以即時查看報表與管理資訊，往往需要額外人工整合，造成決策延遲與誤差。他們期待能擁有清晰、快速的報表工具。</p>
-                         <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
-                             <p style="margin:0; font-weight:700; color: #0288D1;">目標：</p>
-                             <ul style="margin-top:10px; margin-left:20px;">
-                                 <li>報表要即時，不要等到月底才能看。</li>
-                                 <li>跨店數據整合要準確。</li>
-                             </ul>
-                        </div>
-                    </div>
-                </div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">使用者角色</th>
+                            <th style="width: 37.5%;">核心痛點</th>
+                            <th style="width: 37.5%;">關鍵需求</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="role-icon">🧖‍♀️</span><strong>芳療師<br>(第一線)</strong></td>
+                            <td>
+                                • 一邊服務客人一邊操作電腦，<span class="highlight-text">速度慢會讓客人不耐煩</span><br>
+                                • 結帳流程太常卡住，很怕算錯錢
+                            </td>
+                            <td>
+                                • 需要<span class="highlight-text">更直覺的操作介面</span><br>
+                                • 減少不必要的頁面切換<br>
+                                • 加快結帳流程穩定性
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="role-icon">👔</span><strong>店經理<br>(管理層)</strong></td>
+                            <td>
+                                • 需要<span class="highlight-text">一眼就能看到今天的業績狀況</span><br>
+                                • 權限設定要更靈活，不要讓新人看到敏感資料
+                            </td>
+                            <td>
+                                • 支援<span class="highlight-text">多層級權限設定</span><br>
+                                • 清楚呈現整體營運狀態<br>
+                                • 跨部門協作與數據掌握
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="role-icon">📊</span><strong>總部主管<br>(決策層)</strong></td>
+                            <td>
+                                • <span class="highlight-text">報表要即時</span>，不要等到月底才能看<br>
+                                • 跨店數據整合要準確
+                            </td>
+                            <td>
+                                • <span class="highlight-text">即時查看報表</span>與管理資訊<br>
+                                • 清晰、快速的報表工具<br>
+                                • 支援決策的數據分析
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
                 
                 <div style="margin-top: 50px;">
-                    <span class="section-label">芳療師使用者旅程地圖</span>
-                    <p>我對第一線操作系統最頻繁的角色──芳療師，進行實際觀察與需求訪談。由於她們的日常工作同時涵蓋顧客接待、課程銷售、服務體驗與結帳流程，對系統的依賴度極高，因此任何介面設計上的不便都會直接影響工作效率與顧客體驗。</p>
+                    <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 20px;">芳療師使用者旅程地圖</h3>
+                    <p style="margin-bottom: 30px;">我對第一線操作系統最頻繁的角色──芳療師，進行<span class="highlight-text">實際觀察與需求訪談</span>。由於她們的日常工作同時涵蓋顧客接待、課程銷售、服務體驗與結帳流程，對系統的依賴度極高，因此任何介面設計上的不便都會直接影響工作效率與顧客體驗。</p>
                     
+                    <h4 style="font-weight: 700; margin-bottom: 15px; font-size: 18px;">核心痛點集中於「不悅」區塊：</h4>
+                    <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 30px;">
+                        <li><strong>課程銷售：</strong> 系統依賴紙本、查詢繁瑣，<span class="highlight-text">阻礙即時銷售</span>。</li>
+                        <li><strong>結帳與流程：</strong> 系統易當機、流程冗長，<span class="highlight-text">直接損害顧客體驗</span>。</li>
+                        <li><strong>業績分配：</strong> 每日手動分配次數過多，<span class="highlight-text">耗時且降低工作滿意度</span>。</li>
+                    </ul>
+
                     <div class="img-placeholder">
                         <img src="./images/erp/user_journey_map.png" alt="芳療師使用者旅程地圖">
                     </div>
                     <p class="img-caption">▲ 芳療師使用者旅程地圖：找出銷售與結帳的痛點</p>
 
-                    <h3 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px;">核心痛點集中於「不悅」區塊：</h3>
-                    <ul style="list-style-type: disc;">
-                        <li><strong>課程銷售：</strong> 系統依賴紙本、查詢繁瑣，阻礙即時銷售。</li>
-                        <li><strong>結帳與流程：</strong> 系統易當機、流程冗長，直接損害顧客體驗。</li>
-                        <li><strong>業績分配：</strong> 每日手動分配次數過多，耗時且降低工作滿意度。</li>
-                    </ul>
-
-                    <h3 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px;">設計目標與改善機會：</h3>
+                    <h4 style="font-weight: 700; margin-top: 30px; margin-bottom: 15px;">設計目標與改善機會：</h4>
                     <p>改善設計將專注於將這些「不悅」節點轉化為「愉快」體驗：</p>
-                    <ul style="list-style-type: disc;">
-                        <li><strong>提升效率：</strong> 透過「快速查詢紀錄」與「一鍵加購功能」，加速接待與銷售流程。</li>
-                        <li><strong>穩定結帳：</strong> 整合為「單一結帳頁」，確保流程穩定與流暢。</li>
-                        <li><strong>自動化：</strong> 導入「自動分配業績」功能，徹底解放芳療師的行政負擔。</li>
+                    <ul style="list-style-type: disc; margin-left: 20px;">
+                        <li><strong>提升效率：</strong> 透過<span class="highlight-text">「快速查詢紀錄」與「一鍵加購功能」</span>，加速接待與銷售流程。</li>
+                        <li><strong>穩定結帳：</strong> 整合為<span class="highlight-text">「單一結帳頁」</span>，確保流程穩定與流暢。</li>
+                        <li><strong>自動化：</strong> 導入<span class="highlight-text">「自動分配業績」功能</span>，徹底解放芳療師的行政負擔。</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section class="pad-box border-b" style="background: #fff;">
-            <span class="section-label">02.5 系統架構規劃</span>
-            <h2 style="font-size: 32px; margin-bottom: 20px;">資訊架構 (Information Architecture)</h2>
-            <p style="margin-bottom: 30px;">在完成使用者研究後，我們先將原有的系統架構重新梳理，整合成新的 ERP 系統架構。這張資訊架構圖設計涵蓋了 <strong>6 大核心模組</strong>，總計規劃了超過 <strong>300 個頁面/功能節點</strong>。其中，參數設定、會員管理、預約管理、安全管理為全新模組。這張藍圖不僅定義了系統的整體範圍，也指導了所有導航和資訊佈局的設計，確保了系統的可擴展性與邏輯連貫性。</p>
-            
-            <div class="img-placeholder">
-                <img src="./images/erp/info_architecture.png" alt="系統資訊架構圖">
-            </div>
-            <p class="img-caption">▲ ERP 系統資訊架構圖：6 大模組、300+ 功能節點</p>
-
-            <h2 style="font-size: 32px; margin-top: 60px; margin-bottom: 20px;">銷售流程架構設計</h2>
-            <p style="margin-bottom: 30px;">以下展示了我為 SPA 產業的 ERP 系統重新設計的銷售流程，目的是讓前台操作人員與後台管理端能更直覺地追蹤每筆交易與業績分配狀況。整體設計以「付款」為核心節點，串連前、中、後台的資料流。</p>
-            
-            <div class="img-placeholder">
-                <img src="./images/erp/sales_flow.png" alt="銷售流程架構">
-            </div>
-            <p class="img-caption">▲ 銷售流程架構：以「付款」為核心節點，串聯前後台資料流</p>
-        </section>
-
-<section id="section-03" class="split-section border-b">
+        <!-- 系統架構規劃 -->
+        <section id="section-025" class="split-section border-b" style="background: #fff;">
             <div class="split-left border-r">
-                03.<br>Solution<br>& Redesign
+                系統架構規劃
+                <div class="split-subtitle">02.5 System Architecture</div>
             </div>
             <div class="split-right">
-                <span class="section-label">購買流程重塑</span>
-                <h2 style="font-size: 28px; margin-bottom: 20px; font-weight: 700;">從卡頓到流暢：一體化的購買體驗</h2>
-                <p style="margin-bottom: 30px;">在了解使用者實際操作行為與痛點後，我們重新定義了系統架構，並聚焦於提升購買與付款流程的效率，開始進入設計階段。在 ERP 系統眾多模組中，「購買單」是使用頻率最高、流程最複雜的功能之一。舊系統的購買流程需要分別進行購買、付款與消耗操作，不僅步驟繁瑣，也容易因資料同步問題導致系統當機。</p>
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 20px;">資訊架構 (Information Architecture)</h3>
+                <p style="margin-bottom: 30px;">在完成使用者研究後，我們先將原有的系統架構重新梳理，整合成新的 ERP 系統架構。這張資訊架構圖設計涵蓋了 <span class="highlight-text">6 大核心模組</span>，總計規劃了超過 <span class="highlight-text">300 個頁面/功能節點</span>。其中，參數設定、會員管理、預約管理、安全管理為全新模組。這張藍圖不僅定義了系統的整體範圍，也指導了所有導航和資訊佈局的設計，確保了系統的可擴展性與邏輯連貫性。</p>
+                
+                <div class="img-placeholder">
+                    <img src="./images/erp/info_architecture.png" alt="系統資訊架構圖">
+                </div>
+                <p class="img-caption">▲ ERP 系統資訊架構圖：6 大模組、300+ 功能節點</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 60px; margin-bottom: 20px;">銷售流程架構設計</h3>
+                <p style="margin-bottom: 30px;">以下展示了我為 SPA 產業的 ERP 系統重新設計的銷售流程，目的是讓前台操作人員與後台管理端能更直覺地追蹤每筆交易與業績分配狀況。整體設計以<span class="highlight-text">「付款」為核心節點</span>，串連前、中、後台的資料流。</p>
+                
+                <div class="img-placeholder">
+                    <img src="./images/erp/sales_flow.png" alt="銷售流程架構">
+                </div>
+                <p class="img-caption">▲ 銷售流程架構：以「付款」為核心節點，串聯前後台資料流</p>
+            </div>
+        </section>
+
+        <section id="section-03" class="split-section border-b">
+            <div class="split-left border-r">
+                購買流程重塑
+                <div class="split-subtitle">03. Solution & Redesign</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">在了解使用者實際操作行為與痛點後，我們重新定義了系統架構，並聚焦於<span class="highlight-text">提升購買與付款流程的效率</span>，開始進入設計階段。在 ERP 系統眾多模組中，「購買單」是使用頻率最高、流程最複雜的功能之一。舊系統的購買流程需要分別進行購買、付款與消耗操作，不僅步驟繁瑣，也容易因資料同步問題導致系統當機。</p>
                 
                 <h3 style="font-weight: 700; margin-bottom: 15px; font-size: 18px;">本次改版的目標是：</h3>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 40px;">
-                    <li>將複雜操作整合為單一頁面流程</li>
+                    <li>將複雜操作<span class="highlight-text">整合為單一頁面流程</span></li>
                     <li>提升表單回饋速度與穩定性</li>
-                    <li>讓使用者在同一畫面即可完成所有動作</li>
+                    <li>讓使用者在<span class="highlight-text">同一畫面即可完成所有動作</span></li>
                 </ul>
                 
-                <div class="comparison-grid">
-                    <div class="comp-box" style="background: #FFF5F5;">
-                        <span class="comp-title" style="color: #D32F2F;">🔴 Before 舊系統問題</span>
-                        <ul>
-                            <li>須在不同模組間切換（購買 / 消耗 / 付款）</li>
-                            <li>操作中易當機，導致資料遺失</li>
-                            <li>新進員工需長時間學習才能熟練</li>
-                            <li>介面擁擠，不適合 iPad 橫向操作</li>
-                        </ul>
-                        <div class="img-placeholder" style="margin-top: 20px;">
-                            <img src="./images/erp/old_system.png" alt="舊系統介面">
+                <!-- Before/After 滑動比較 - 修正版 -->
+                <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 20px;">系統改版對比</h3>
+                <p style="margin-bottom: 30px;">透過重新設計購買流程，我們成功將<span class="highlight-text">多步驟操作整合為單一頁面</span>，並針對 iPad 橫向操作進行優化。<span class="highlight-text">左右拖動滑桿</span>查看舊系統與新版設計的對比：</p>
+
+                <div class="before-after-container">
+                    <div class="comparison-slider" id="comparisonSlider">
+                        <!-- After (背景層) -->
+                        <div class="comparison-item after">
+                            <span class="comparison-label after">🔵 After</span>
+                            <img src="./images/erp/new_purchase_ui.png" alt="新版設計" class="comparison-image">
+                            <div class="comparison-content">
+                                <h4>新版設計優勢</h4>
+                                <ul>
+                                    <li>單頁面完成：將所有操作整合為單一流程，無須跳轉</li>
+                                    <li>右側活動查詢：新增優惠查詢欄位，輔助銷售</li>
+                                    <li>iPad 適配：重新規劃佈局，符合門市橫向操作習慣</li>
+                                    <li>即時金額更新：金額總計移至頁面上方，方便掌握</li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="comp-box" style="background: #F0F9FF;">
-                        <span class="comp-title" style="color: #0288D1;">🔵 After 新版設計</span>
-                        <ul>
-                            <li><strong>單頁面完成：</strong>將所有操作整合為單一流程，無須跳轉。</li>
-                            <li><strong>右側活動查詢：</strong>新增優惠查詢欄位，輔助銷售。</li>
-                            <li><strong>iPad 適配：</strong>重新規劃佈局，符合門市橫向操作習慣。</li>
-                            <li><strong>即時金額更新：</strong>金額總計移至頁面上方，方便掌握。</li>
-                        </ul>
+                        
+                        <!-- Before (前景層，可裁切) -->
+                        <div class="comparison-item before" id="beforeItem">
+                            <span class="comparison-label before">🔴 Before</span>
+                            <img src="./images/erp/old_system.png" alt="舊系統" class="comparison-image">
+                            <div class="comparison-content">
+                                <h4>舊系統問題</h4>
+                                <ul>
+                                    <li>須在不同模組間切換（購買 / 消耗 / 付款）</li>
+                                    <li>操作中易當機，導致資料遺失</li>
+                                    <li>新進員工需長時間學習才能熟練</li>
+                                    <li>介面擁擠，不適合 iPad 橫向操作</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Slider Handle -->
+                        <div class="comparison-slider-handle" id="sliderHandle">
+                            <div class="comparison-slider-button"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -606,27 +859,20 @@
                 </div>
                 <p class="img-caption">▲ 草稿階段：嘗試將所有操作集中於單一頁面</p>
 
-                <h3 style="font-weight: 700; margin-top: 50px; margin-bottom: 20px; font-size: 18px;">After — 最終設計版本</h3>
+                <h3 style="font-weight: 700; margin-top: 50px; margin-bottom: 20px; font-size: 18px;">Final — 上線後的實際成效</h3>
                 <p style="margin-bottom: 20px;">在經歷多次改版後，最終版本將購買流程重新規劃為五個步驟，以適配橫向操作介面。</p>
                 
                 <h4 style="font-weight: 700; margin-bottom: 15px;">介面設計重點包括：</h4>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 30px;">
-                    <li>縮小「新增」按鈕、放大購買單明細區塊，讓主要操作更集中、可視性更佳。</li>
-                    <li>金額總計移至頁面上方，方便使用者即時掌握金額變化。</li>
-                    <li>根據門市人員的實際需求，新增右側「優惠活動查詢」功能，可即時查詢店內促銷活動及客戶目前消費是否符合優惠條件，協助銷售人員更有效地進行推廣與銷售。</li>
+                    <li>縮小「新增」按鈕、放大購買單明細區塊，讓<span class="highlight-text">主要操作更集中、可視性更佳</span>。</li>
+                    <li><span class="highlight-text">金額總計移至頁面上方</span>，方便使用者即時掌握金額變化。</li>
+                    <li>根據門市人員的實際需求，新增右側<span class="highlight-text">「優惠活動查詢」功能</span>，可即時查詢店內促銷活動及客戶目前消費是否符合優惠條件，協助銷售人員更有效地進行推廣與銷售。</li>
                 </ul>
 
-                <div style="margin-top: 40px;">
-                     <div class="img-placeholder">
-                         <img src="./images/erp/new_purchase_ui.png" alt="New Purchasing Flow UI">
-                    </div>
-                    <p class="img-caption">▲ 新版購買單介面：整合明細、金額與活動查詢於同一畫面</p>
-                </div>
-
-                <h3 style="font-weight: 700; margin-top: 50px; margin-bottom: 20px; font-size: 18px;">Final — 上線後的實際成效與介面改善</h3>
+                <h4 style="font-weight: 700; margin-bottom: 15px;">上線成效：</h4>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 30px;">
-                    <li>實際操作時間減少約 60%</li>
-                    <li>系統當機率大幅下降</li>
+                    <li><span class="highlight-text">實際操作時間減少約 60%</span></li>
+                    <li><span class="highlight-text">系統當機率大幅下降</span></li>
                     <li>芳療師回饋：「結帳變得更直覺，可流暢的進行銷售操作」</li>
                 </ul>
 
@@ -637,19 +883,18 @@
 
                 <div style="background: #f9f9f9; padding: 30px; margin-top: 40px; border-left: 4px solid #0288D1;">
                     <h3 style="font-weight: 700; margin-bottom: 15px;">💡 結語</h3>
-                    <p>本次購買單改版不僅優化了操作流程，更改變了內部使用習慣。透過清晰的資訊層級與一致的互動邏輯，系統在穩定性與效率上皆獲得顯著提升。此外，改版後讓操作者能在購買單結束後直接連結到付款單，付款完成後可無縫接續至消耗課程，讓顧客能立即進行課程消耗與 SPA 體驗，整體作業流程更流暢且連貫。</p>
+                    <p>本次購買單改版不僅優化了操作流程，更改變了內部使用習慣。透過清晰的資訊層級與一致的互動邏輯，系統在<span class="highlight-text">穩定性與效率上皆獲得顯著提升</span>。此外，改版後讓操作者能在購買單結束後直接連結到付款單，付款完成後可無縫接續至消耗課程，讓顧客能立即進行課程消耗與 SPA 體驗，<span class="highlight-text">整體作業流程更流暢且連貫</span>。</p>
                 </div>
             </div>
         </section>
 
         <section id="section-035" class="split-section border-b" style="background: #f9f9f9;">
             <div class="split-left border-r">
-                03.5<br>UI Design<br>System
+                設計系統
+                <div class="split-subtitle">03.5 UI Design System</div>
             </div>
             <div class="split-right">
-                <span class="section-label">設計系統</span>
-                <h2 style="font-size: 28px; margin-bottom: 20px; font-weight: 700;">UI KIT</h2>
-                <p style="margin-bottom: 30px;">為了確保模組開發一致性，我整理出 ERP 專案專用的 UI KIT，包含按鈕樣式、色彩定義，讓新模組能快速對齊設計語言。</p>
+                <p style="margin-bottom: 30px;">為了確保模組開發一致性，我整理出 ERP 專案專用的 UI KIT，包含<span class="highlight-text">按鈕樣式、色彩定義</span>，讓新模組能快速對齊設計語言。這套設計系統不僅提升了開發效率，也確保了整體介面的視覺一致性與專業度。</p>
                 
                 <div class="img-placeholder">
                     <img src="./images/erp/ui kit.png" alt="UI Kit">
@@ -660,63 +905,73 @@
 
         <section id="section-04" class="split-section border-b">
             <div class="split-left border-r">
-                04.<br>Interface<br>Showcase
+                介面展示
+                <div class="split-subtitle">04. Interface Showcase</div>
             </div>
             <div class="split-right">
-                <span class="section-label">關鍵功能介面展示</span>
+                <p style="margin-bottom: 40px;">以下展示系統中<span class="highlight-text">三個核心功能模組</span>的實際介面與操作流程，這些功能直接影響門市日常營運效率與使用者體驗。</p>
 
                 <div style="margin-bottom: 60px;">
-                    <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 24px;">會員管理介面</h3>
-                    <div class="img-placeholder">
-                        <img src="./images/erp/member_management.gif" alt="Member Management">
-                    </div>
-                    <div style="margin-top: 20px;">
+                    <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 20px;">會員管理介面</h3>
+                    
+                    <div style="margin-bottom: 20px;">
                          <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
                         <ul style="list-style-type: disc; margin-left: 20px;">
                             <li><strong>資訊總覽：</strong> 快速查看客人的點數、消費金額及消費堂數。</li>
-                            <li><strong>動態消息：</strong> 供門市人員即時記錄客人的特殊需求或注意事項（如「3 月開刀」、「預計出國」），確保服務的個人化與細緻度。</li>
+                            <li><strong>動態消息：</strong> 供門市人員即時記錄客人的特殊需求或注意事項（如「3 月開刀」、「預計出國」），確保<span class="highlight-text">服務的個人化與細緻度</span>。</li>
                             <li><strong>課程追蹤：</strong> 可查看會員已付款未消耗的課程總數。</li>
-                            <li><strong>右側快速操作：</strong> 右側欄位可一鍵進入銷售管理，快速完成購買、付款及課程消耗等核心流程，大幅提升門市服務效率。</li>
+                            <li><strong>右側快速操作：</strong> 右側欄位可<span class="highlight-text">一鍵進入銷售管理</span>，快速完成購買、付款及課程消耗等核心流程，大幅提升門市服務效率。</li>
                         </ul>
-                        <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
-                            <p style="margin: 0;"><strong>💡 設計重點：</strong>將主要操作按鈕集中於右側，符合 iPad 橫向操作習慣，降低誤觸率並縮短操作路徑。</p>
-                        </div>
+                    </div>
+
+                    <div class="img-placeholder">
+                        <img src="./images/erp/member_management.gif" alt="Member Management">
+                    </div>
+                    
+                    <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
+                        <p style="margin: 0;"><strong>💡 設計重點：</strong>將主要操作按鈕集中於右側，符合 iPad 橫向操作習慣，降低誤觸率並縮短操作路徑。</p>
                     </div>
                 </div>
 
                 <div style="margin-bottom: 60px;">
-                    <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 24px;">業績分配系統</h3>
+                    <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 20px;">業績分配系統</h3>
+                    
+                    <div style="margin-bottom: 20px;">
+                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li><strong>多筆分配能力：</strong> 突破舊系統只能單筆分配的限制，允許門市人員<span class="highlight-text">一次選取多筆已付款訂單進行批次業績歸屬</span>。</li>
+                            <li><strong>快速便捷操作：</strong> 提供最近輸入過的操作人員列表，實現快速選擇，大幅節省時間。</li>
+                            <li><strong>即時餘額檢核：</strong> 分配金額時，系統會依據「已分配金額」<span class="highlight-text">即時顯示剩餘餘額</span>，確保數據精準，避免超額或遺漏，使分配工作更為直覺高效。</li>
+                        </ul>
+                    </div>
+
                     <div class="img-placeholder">
                         <img src="./images/erp/sales_distribution.gif" alt="Sales Distribution">
                     </div>
-                    <div style="margin-top: 20px;">
-                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
-                        <ul style="list-style-type: disc; margin-left: 20px;">
-                            <li><strong>多筆分配能力：</strong> 突破舊系統只能單筆分配的限制，允許門市人員一次選取多筆已付款訂單進行批次業績歸屬。</li>
-                            <li><strong>快速便捷操作：</strong> 提供最近輸入過的操作人員列表，實現快速選擇，大幅節省時間。</li>
-                            <li><strong>即時餘額檢核：</strong> 分配金額時，系統會依據「已分配金額」即時顯示剩餘餘額，確保數據精準，避免超額或遺漏，使分配工作更為直覺高效。</li>
-                        </ul>
-                        <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
-                            <p style="margin: 0;"><strong>💡 設計重點：</strong>以即時金額回饋與直覺化分配介面為核心，讓業績分配過程更高效透明。</p>
-                        </div>
+                    
+                    <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
+                        <p style="margin: 0;"><strong>💡 設計重點：</strong>以即時金額回饋與直覺化分配介面為核心，讓業績分配過程更高效透明。</p>
                     </div>
                 </div>
 
                 <div style="margin-bottom: 60px;">
-                    <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 24px;">盤點作業</h3>
+                    <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 20px;">盤點作業</h3>
+                    
+                    <div style="margin-bottom: 20px;">
+                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
+                        <ul style="list-style-type: disc; margin-left: 20px;">
+                            <li><strong>儲位管理：</strong> 舊系統依賴整店手工盤點，新系統導入<span class="highlight-text">「儲位」概念</span>，實現最小單位盤點，極大化準確性。</li>
+                            <li><strong>彈性作業：</strong> 支援儲存進度，允許暫離後續盤，符合門市高機動性需求。</li>
+                            <li><strong>效率採集：</strong> 可選擇手動輸入或<span class="highlight-text">直接掃描條碼</span>，並即時顯示盤點結果，確保數據採集的速度與精確。</li>
+                        </ul>
+                    </div>
+
                     <div class="img-placeholder">
                         <img src="./images/erp/inventory.gif" alt="Inventory Management">
                     </div>
-                    <div style="margin-top: 20px;">
-                         <h4 style="font-weight: 700; margin-bottom: 10px;">核心功能：</h4>
-                        <ul style="list-style-type: disc; margin-left: 20px;">
-                            <li><strong>儲位管理：</strong> 舊系統依賴整店手工盤點，新系統導入「儲位」概念，實現最小單位盤點，極大化準確性。</li>
-                            <li><strong>彈性作業：</strong> 支援儲存進度，允許暫離後續盤，符合門市高機動性需求。</li>
-                            <li><strong>效率採集：</strong> 可選擇手動輸入或直接掃描條碼，並即時顯示盤點結果，確保數據採集的速度與精確。</li>
-                        </ul>
-                        <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
-                            <p style="margin: 0;"><strong>💡 設計重點：</strong>導入「儲位」概念與進度儲存功能，支援條碼掃描與即時盤點結果顯示，讓盤點流程更快速、精準。</p>
-                        </div>
+                    
+                    <div style="background: #E3F2FD; padding: 20px; margin-top: 20px; border-left: 4px solid #0288D1;">
+                        <p style="margin: 0;"><strong>💡 設計重點：</strong>導入「儲位」概念與進度儲存功能，支援條碼掃描與即時盤點結果顯示，讓盤點流程更快速、精準。</p>
                     </div>
                 </div>
             </div>
@@ -724,11 +979,11 @@
 
         <section id="section-05" class="split-section border-b">
             <div class="split-left border-r">
-                05.<br>Results<br>& Impact
+                成效與影響
+                <div class="split-subtitle">05. Results & Impact</div>
             </div>
             <div class="split-right">
-                <span class="section-label">成效回顧：從使用者回饋到設計成果轉化</span>
-                <p>透過實際營運數據，驗證設計成效與使用者體驗。系統上線後（2025/1），我們針對第一線使用者發放問卷，以評估新系統在設計整潔度、操作難度及流暢度上的實際表現。這些量化回饋不僅驗證了新介面的價值，更清晰地指出了流程中的潛在瓶頸與痛點，成為我們未來持續改善產品的堅實依據。</p>
+                <p style="margin-bottom: 30px;">透過實際營運數據，驗證設計成效與使用者體驗。系統上線後（2025/1），我們針對第一線使用者發放問卷，以評估新系統在<span class="highlight-text">設計整潔度、操作難度及流暢度</span>上的實際表現。這些量化回饋不僅驗證了新介面的價值，更清晰地指出了流程中的潛在瓶頸與痛點，成為我們未來持續改善產品的堅實依據。</p>
 
                 <div class="quote-bubble">
                     <p class="quote-text">以前每次開單都怕系統當掉，現在流程更順也不容易錯。</p>
@@ -740,7 +995,7 @@
                     <p class="quote-author">— 公館店 芳療師 Y</p>
                 </div>
 
-                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 20px;">✅ 系統設計滿意度：80% 使用者肯定新版操作體驗</h3>
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 20px;">系統設計滿意度：<span class="highlight-text">80% 使用者肯定新版操作體驗</span></h3>
                 <div class="img-placeholder">
                     <img src="./images/erp/survey_design.png" alt="設計滿意度調查">
                 </div>
@@ -749,50 +1004,53 @@
                     <li><strong>設計價值：</strong> 證明新介面擺脫了舊系統的視覺混亂，提供了一致且專業的操作環境。</li>
                 </ul>
 
-                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 20px;">✅ 操作體驗：付款與手技分配痛點獲得改善</h3>
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 20px;">操作體驗：付款與手技分配痛點獲得改善</h3>
                 <div class="img-placeholder">
                     <img src="./images/erp/survey_ease.png" alt="操作難易度調查">
                 </div>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-top: 15px;">
-                    <li><strong>操作性肯定：</strong> 75% 的使用者認為系統操作「容易」或「非常容易」，顯示我們簡化操作路徑（如右側快速操作、多筆選取）的努力得到回報。</li>
+                    <li><strong>操作性肯定：</strong> <span class="highlight-text">75% 的使用者認為系統操作「容易」或「非常容易」</span>，顯示我們簡化操作路徑（如右側快速操作、多筆選取）的努力得到回報。</li>
                     <li><strong>改善機會：</strong> 仍有 25% 的使用者認為操作困難，這可能與特定功能（如「付款單」或「手技分配」）的複雜度有關，需進一步訪談釐清。</li>
                 </ul>
 
-                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 20px;">✅ 系統流暢度：回報速度顯著提升，延遲情況下降</h3>
+                <h3 style="font-weight: 700; margin-top: 40px; margin-bottom: 20px;">系統流暢度：回報速度顯著提升，延遲情況下降</h3>
                 <div class="img-placeholder">
                     <img src="./images/erp/survey_speed.png" alt="系統速度調查">
                 </div>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-top: 15px;">
                     <li><strong>速度仍是瓶頸：</strong> 儘管設計流程已改善，但有 10 位使用者仍回報系統速度「緩慢」或「慢」。</li>
-                    <li><strong>未來核心：</strong> 系統後端性能與載入速度是下一階段最優先需要處理的核心問題，以全面提升使用者體驗。</li>
+                    <li><strong>未來核心：</strong> <span class="highlight-text">系統後端性能與載入速度是下一階段最優先需要處理的核心問題</span>，以全面提升使用者體驗。</li>
                 </ul>
 
-                <h3 style="font-weight: 700; margin-top: 50px; margin-bottom: 20px;">📊 持續迭代與實質成效</h3>
+                <h3 style="font-weight: 700; margin-top: 50px; margin-bottom: 20px;">持續迭代與實質成效</h3>
                 <p>系統上線初期的主要挑戰來自使用者的適應期。初步問卷顯示，有 25% 的使用者認為操作困難，這與未熟悉系統全新架構及資深芳療師族群中半數為中年、對電腦操作較不熟悉有關。</p>
                 
                 <p style="margin-top: 20px;">經過三個月（2025/3）的追蹤與優化，設計迭代的實質效益逐漸顯現：</p>
                 <ul style="list-style-type: disc; margin-left: 20px; margin-top: 15px;">
-                    <li><strong>操作難度顯著下降：</strong> 回報操作困難的比例由 25% 降至 10%，顯示系統的直覺化設計在適應期後發揮成效。</li>
+                    <li><strong>操作難度顯著下降：</strong> <span class="highlight-text">回報操作困難的比例由 25% 降至 10%</span>，顯示系統的直覺化設計在適應期後發揮成效。</li>
                     <li><strong>系統流暢度穩定提升：</strong> 前端介面與後端效能的改善，使「非常緩慢」的反應比例明顯下降。</li>
                     <li><strong>關鍵痛點落地改善：</strong> 針對「付款單」與「手技分配」等項目，已完成後續追蹤與功能優化。</li>
                 </ul>
 
                 <div style="background: #FFF9C4; padding: 25px; margin: 30px 0; border-left: 4px solid #F57F17;">
-                    <p style="margin: 0;"><strong>💡 關鍵洞察：</strong>這次改版證明，設計不僅是介面的改善，更是一個持續以數據為基礎（Data-Driven）的迭代過程。透過追蹤、分析與持續改善，讓系統真正為第一線使用者帶來長期且可衡量的效率提升。</p>
+                    <p style="margin: 0;"><strong>💡 關鍵洞察：</strong>這次改版證明，設計不僅是介面的改善，更是一個<span class="highlight-text">持續以數據為基礎（Data-Driven）的迭代過程</span>。透過追蹤、分析與持續改善，讓系統真正為第一線使用者帶來長期且可衡量的效率提升。</p>
                 </div>
             </div>
         </section>
 
         <section id="section-06" class="split-section border-b">
             <div class="split-left border-r">
-                06.<br>Reflection
+                專案反思
+                <div class="split-subtitle">06. Reflection</div>
             </div>
             <div class="split-right">
-                <p>身為這個專案中唯一的設計師，我需要同時處理多個模組的介面設計與流程規劃，也因此在設計過程中經歷了多次重構與修正。每一次「打掉重練」都讓我更了解系統運作的邏輯與實際使用者的行為差異。</p>
-                
-                <p style="margin-top: 20px;">這個 ERP 專案不像一般一次性產品，而是一個不斷進化的系統，目前仍在持續迭代中。過程中我學到如何在需求不斷變動的情況下保持設計一致性，並在限制中找出兼顧穩定性與靈活度的平衡。</p>
+                <p style="margin-bottom: 30px;">作為這個專案中<span class="highlight-text">唯一的設計師</span>，我在整個開發過程中累積了寶貴的經驗與深刻的反思。以下是我對這次專案的幾點核心思考：</p>
 
-                <p style="margin-top: 20px;">未來我希望能導入更早期、更多樣化的使用者測試，持續以數據驗證與實際回饋作為設計依據，讓整個系統朝向更直覺、可擴充且真正服務第一線人員的方向前進。</p>
+                <p>身為這個專案中唯一的設計師，我需要同時處理<span class="highlight-text">多個模組的介面設計與流程規劃</span>，也因此在設計過程中經歷了多次重構與修正。每一次「打掉重練」都讓我更了解系統運作的邏輯與實際使用者的行為差異。</p>
+                
+                <p style="margin-top: 20px;">這個 ERP 專案不像一般一次性產品，而是一個<span class="highlight-text">不斷進化的系統</span>，目前仍在持續迭代中。過程中我學到如何在需求不斷變動的情況下保持設計一致性，並在限制中找出兼顧穩定性與靈活度的平衡。</p>
+
+                <p style="margin-top: 20px;">未來我希望能導入<span class="highlight-text">更早期、更多樣化的使用者測試</span>，持續以數據驗證與實際回饋作為設計依據，讓整個系統朝向更直覺、可擴充且真正服務第一線人員的方向前進。</p>
             </div>
         </section>
 
@@ -806,14 +1064,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // 數字動畫邏輯
-            const statsGrid = document.querySelector('.stats-grid');
-            const counters = document.querySelectorAll('.count-up');
-            let isExecuted = false;
+            // Highlight 區塊數字動畫邏輯
+            const highlightSection = document.querySelector('.highlight-section');
+            const highlightCounters = document.querySelectorAll('.highlight-section .count-up');
+            let highlightExecuted = false;
 
             const animateCounter = (counter) => {
                 const target = parseInt(counter.getAttribute('data-target'));
-                const suffix = counter.getAttribute('data-suffix') || '%';
+                const suffix = counter.getAttribute('data-suffix') || '';
                 const duration = 1500;
                 let startTimestamp;
 
@@ -832,17 +1090,76 @@
                 window.requestAnimationFrame(step);
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            const highlightObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && !isExecuted) {
-                        counters.forEach(animateCounter);
-                        isExecuted = true;
-                        observer.unobserve(statsGrid);
+                    if (entry.isIntersecting && !highlightExecuted) {
+                        highlightCounters.forEach(animateCounter);
+                        highlightExecuted = true;
+                        observer.unobserve(highlightSection);
                     }
                 });
             }, { threshold: 0.5 });
 
-            if (statsGrid) { observer.observe(statsGrid); }
+            if (highlightSection) { highlightObserver.observe(highlightSection); }
+
+            // Before/After 滑動比較邏輯 - 修正版
+            const slider = document.getElementById('comparisonSlider');
+            const handle = document.getElementById('sliderHandle');
+            const beforeItem = document.getElementById('beforeItem');
+            
+            if (slider && handle && beforeItem) {
+                let isDragging = false;
+                
+                const updateSlider = (clientX) => {
+                    const rect = slider.getBoundingClientRect();
+                    let x = clientX - rect.left;
+                    x = Math.max(0, Math.min(x, rect.width));
+                    
+                    const percentage = (x / rect.width) * 100;
+                    handle.style.left = percentage + '%';
+                    beforeItem.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+                };
+                
+                const startDragging = (e) => {
+                    isDragging = true;
+                    e.preventDefault();
+                    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                    updateSlider(clientX);
+                };
+                
+                const stopDragging = () => {
+                    isDragging = false;
+                };
+                
+                const onDrag = (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                    updateSlider(clientX);
+                };
+                
+                // Mouse events
+                handle.addEventListener('mousedown', startDragging);
+                slider.addEventListener('mousedown', (e) => {
+                    if (!handle.contains(e.target)) {
+                        isDragging = true;
+                        updateSlider(e.clientX);
+                    }
+                });
+                document.addEventListener('mousemove', onDrag);
+                document.addEventListener('mouseup', stopDragging);
+                
+                // Touch events
+                handle.addEventListener('touchstart', startDragging, { passive: false });
+                slider.addEventListener('touchstart', (e) => {
+                    if (!handle.contains(e.target)) {
+                        isDragging = true;
+                        updateSlider(e.touches[0].clientX);
+                    }
+                }, { passive: false });
+                document.addEventListener('touchmove', onDrag, { passive: false });
+                document.addEventListener('touchend', stopDragging);
+            }
 
             // 燈箱邏輯
             const lightbox = document.getElementById('lightbox');
@@ -867,23 +1184,6 @@
                 }
             });
         });
-
-        // Tab 切換邏輯
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-                tabcontent[i].classList.remove("active");
-            }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.className += " active";
-        }
     </script>
 </body>
 </html>
