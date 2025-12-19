@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>erect 創作平台APP | YA CHIEH LIU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&family=Noto+Sans+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #F2F2F2;
+            --text-color: #111111;
+            --line-color: #000000;
+            --active-color: #000000;
+            --highlight-color: #7C4DFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', 'Noto Sans TC', sans-serif; line-height: 1.6; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* 重點標記樣式 */
+        .highlight-text {
+            color: var(--highlight-color);
+            text-decoration: underline;
+            text-decoration-color: var(--highlight-color);
+            text-underline-offset: 3px;
+            font-weight: 600;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+            background: #fff;
+        }
+
+        .border-b { border-bottom: 1px solid var(--line-color); }
+        .border-r { border-right: 1px solid var(--line-color); }
+        .pad-box { padding: 60px 40px; }
+        .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.5; }
+        
+        header { display: flex; justify-content: space-between; padding: 20px 40px; align-items: center; }
+        .logo { font-weight: 900; font-size: 20px; }
+        .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
+        .back-btn:hover { background: #000; color: #fff; }
+
+        .project-hero { padding: 80px 40px 40px; }
+        h1 { font-size: 48px; line-height: 1.1; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
+        .tagline { font-size: 18px; font-weight: 500; color: #555; max-width: 600px; margin-bottom: 20px; }
+
+        /* Highlight 區塊樣式 */
+        .highlight-section {
+            background: linear-gradient(135deg, #7C4DFF 0%, #536DFE 100%);
+            color: #fff;
+            padding: 50px 40px;
+            margin: 0;
+        }
+        .highlight-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .highlight-item {
+            text-align: center;
+        }
+        .highlight-number {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 15px;
+            line-height: 1;
+        }
+        .highlight-desc {
+            font-size: 15px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+
+        .full-width-banner {
+            padding: 0;
+            min-height: 80vh;
+            background-image: url('https://static.wixstatic.com/media/dafa39_3aa019d0760d4806b9818badbc788f4d~mv2.png');
+            background-size: cover; 
+            background-position: center center; 
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
+            position: relative;
+        }
+
+        .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+        .info-item { padding: 30px 40px; font-size: 14px; }
+        .info-title { font-weight: 700; margin-bottom: 8px; opacity: 0.6; }
+
+        .split-section { display: grid; grid-template-columns: 1fr 2fr; }
+        .split-left { padding: 60px 40px; font-weight: 700; font-size: 28px; line-height: 1.3; }
+        .split-subtitle { font-size: 14px; font-weight: 500; opacity: 0.5; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; }
+        .split-right { padding: 60px 40px; font-size: 16px; color: #333; }
+        .split-right p { margin-bottom: 20px; text-align: justify; }
+        .split-right ul { margin-left: 20px; margin-bottom: 20px; }
+        .split-right li { margin-bottom: 10px; }
+
+        /* 圖片容器樣式 */
+        .img-placeholder { 
+            width: 100%;
+            height: auto; 
+            min-height: 400px; 
+            background: transparent; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 20px; 
+            color: #666; 
+            border: none;
+            margin-bottom: 20px;
+            cursor: zoom-in;
+            overflow: hidden;
+        }
+        .img-placeholder img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: contain; 
+            min-height: 400px;
+            transition: transform 0.3s ease;
+        }
+        .img-placeholder:hover img {
+            transform: scale(1.02);
+        }
+        
+        .img-caption { font-size: 14px; color: #666; text-align: center; margin-top: 10px; }
+
+        /* 統計數據卡片 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .stat-card {
+            background: #F5F5F5;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--highlight-color);
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Persona 卡片 */
+        .persona-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .persona-card {
+            background: #fff;
+            border: 1px solid #eee;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .persona-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--highlight-color);
+        }
+        .persona-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .persona-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        /* 問題點樣式 */
+        .problem-box {
+            background: #FFF3E0;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #FF9800;
+        }
+        .problem-box h4 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #FF9800;
+        }
+
+        /* 底部導覽列 */
+        .bottom-menu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex; 
+            justify-content: center; 
+            background-color: #fff; 
+            border-top: 1px solid var(--line-color); 
+            z-index: 999; 
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
+            overflow-x: auto; 
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .bottom-menu::-webkit-scrollbar {
+            display: none;
+        }
+
+        .menu-tab {
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 15px;
+            margin: 0 5px;
+            color: var(--text-color);
+            transition: 0.3s;
+            border-bottom: 2px solid transparent; 
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .menu-tab:hover, .menu-tab.active {
+            font-weight: 700;
+            border-bottom: 2px solid var(--line-color); 
+            color: var(--text-color);
+        }
+
+        /* 燈箱樣式 */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        footer { padding-bottom: 120px; }
+
+        /* === RWD 手機版 (768px) === */
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .highlight-grid { grid-template-columns: repeat(2, 1fr); gap: 30px; }
+            .highlight-number { font-size: 42px; }
+            .info-grid, .split-section, .stats-grid, .persona-grid { grid-template-columns: 1fr; }
+            .info-item, .split-left, .split-right { border-right: none; border-bottom: 1px solid var(--line-color); padding: 30px 20px; }
+            .project-hero { padding: 60px 20px; }
+            .menu-tab { padding: 8px 10px; font-size: 12px; margin: 0 2px; }
+            .full-width-banner { min-height: 40vh; background-attachment: scroll; }
+            .bottom-menu { justify-content: flex-start; padding-left: 10px; padding-right: 10px; }
+            .img-placeholder { min-height: auto; height: auto; }
+            .img-placeholder img { min-height: auto; object-fit: contain; }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Full screen">
+    </div>
+
+    <nav class="bottom-menu">
+        <a href="#section-01" class="menu-tab">01.專案背景</a>
+        <a href="#section-02" class="menu-tab">02.競品分析</a>
+        <a href="#section-03" class="menu-tab">03.使用者研究</a>
+        <a href="#section-04" class="menu-tab">04.資訊架構</a>
+        <a href="#section-05" class="menu-tab">05.線框圖</a>
+        <a href="#section-06" class="menu-tab">06.使用者測試</a>
+        <a href="#section-07" class="menu-tab">07.高保真原型</a>
+        <a href="#section-08" class="menu-tab">08.反思</a>
+    </nav>
+
+    <div class="container">
+        <header class="border-b">
+            <div class="logo">YA CHIEH LIU</div>
+            <a href="https://yhliudes.github.io/portfolio-2025/" class="back-btn">← BACK TO LIST</a>
+        </header>
+
+        <section class="project-hero border-b">
+            <span class="section-label">Independent Project / 2021-2022</span>
+            <h1>erect<br>創作平台APP</h1>
+            <p class="tagline">專為愛發電的創作者打造的平台，通過發表插畫/漫畫/小說結交同好，讓台灣創作者擁有更自由且能交流喜好的美好平台。</p>
+        </section>
+
+        <section class="full-width-banner border-b"></section>
+
+        <section class="meta-data-section border-b">
+            <div class="info-grid">
+                <div class="info-item border-r">
+                    <div class="info-title">專案簡介</div>
+                    <div>erect是一款為愛發電的創作者平台，通過發表自己創作的插畫/漫畫/小說結交同好，讓台灣創作者能有更加自由且能夠交流喜好的美好平台。</div>
+                </div>
+                <div class="info-item border-r">
+                    <div class="info-title">負責任務</div>
+                    <div>研究調查<br>使用者訪談<br>介面設計<br>原型製作<br>設計系統</div>
+                </div>
+                <div class="info-item border-r">
+                    <div class="info-title">專案團隊</div>
+                    <div>獨立作業</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-title">專案時間</div>
+                    <div>2021.12 - 2022.01<br>約50小時</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-01" class="split-section border-b">
+            <div class="split-left border-r">
+                專案背景
+                <div class="split-subtitle">01. Background & Context</div>
+            </div>
+            <div class="split-right">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #111;">為什麼要做這個專案？</h3>
+                <p>個人因長年因興趣而經營繪圖創作，使用了許多不同的創作平台後發現：<span class="highlight-text">台灣有非常多優秀的創作者</span>，他們有著源源不絕的靈感與高水準的作品，但是卻常常困擾於<span class="highlight-text">沒有屬於台灣的作品發表平台</span>，能夠集合台灣的創作者與讀者形成社會性網路，只能將作品發表在如 pixiv 這種國外作品網站。</p>
+
+                <p style="margin-top: 20px;">因此發想出 erect 這個創作平台，能夠讓作者不分職業或是興趣，都能夠<span class="highlight-text">自由的發表作品</span>，並且讓讀者也能參與其中，讓台灣的創作圈更加活絡。</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">專案目標</h3>
+                <p>希望能夠藉由此 app <span class="highlight-text">凝聚台灣的創作者</span>，讓創作者們能夠自由的在此平台發表作品，並且結交同好朋友，讓創作這件事更加活絡並且充滿我們的生活。</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">市場現況</h3>
+                <p>台灣目前擁有的創作平台幾乎都是<span class="highlight-text">論壇形式或是商業模式的線上漫畫網站</span>為主，非商業走向的創作平台極稀有或是都存活不久，希望能建立一個基礎免費的 app 讓使用者適應並且口耳相傳更加壯大。</p>
+
+                <div style="margin-top: 50px;">
+                    <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #111;">設計流程</h3>
+                    <div class="img-placeholder" style="min-height: auto;">
+                        <img src="https://static.wixstatic.com/media/dafa39_fc98057fdc8d4787a52953bd174daa01~mv2.png" alt="設計流程" style="min-height: auto;">
+                    </div>
+                    <p class="img-caption">▲ 從研究到原型的完整設計流程</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-02" class="split-section border-b">
+            <div class="split-left border-r">
+                競品分析
+                <div class="split-subtitle">02. Competitive Analysis</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">在發想出此主題後，我下載了約 10 款相似類型 app，並將其中<span class="highlight-text">最具代表性、功能最完善的三款 app</span> 進行詳盡的分析，包括這些產品的基本特徵、產品功能，以及用戶體驗。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_9997ac691dfe4792a718d35d3294203f~mv2.png" alt="競品分析">
+                </div>
+                <p class="img-caption">▲ 主要競品分析：功能對比與使用者體驗評估</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">競品分析洞察</h3>
+                <ul style="list-style-type: disc; margin-left: 20px; font-size: 16px; color: #333;">
+                    <li>國外平台（如 pixiv）功能完整但<span class="highlight-text">缺乏在地化社群氛圍</span></li>
+                    <li>台灣論壇式平台操作複雜，<span class="highlight-text">不適合手機瀏覽</span></li>
+                    <li>商業平台著重營利，<span class="highlight-text">限制了創作者的自由度</span></li>
+                    <li>多數平台<span class="highlight-text">缺乏有效的標籤與推薦系統</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="section-03" class="split-section border-b">
+            <div class="split-left border-r">
+                使用者研究
+                <div class="split-subtitle">03. User Research</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">在此階段，我訪談了 <span class="highlight-text">5 位潛在使用者</span>，分別為<span class="highlight-text">兩位創作者以及三位讀者</span>，了解這些使用者在使用創作社群平台時的行為，以及在使用這些平台時的需求。</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">90%</div>
+                        <div class="stat-label">使用手機觀看作品</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">希望結交同好</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">60%</div>
+                        <div class="stat-label">需要有效率的收藏作品</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50%</div>
+                        <div class="stat-label">需要完善的標籤功能</div>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">使用者洞察</h3>
+                <p>我發現多數人使用創作社群平台時，有<span class="highlight-text">絕大多數時間是使用手機觀看作品</span>，並且希望能夠有效率的收藏作品，以及能夠結交更多同好。</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">使用流程</h3>
+                <p style="margin-bottom: 20px;">透過實際使用 app 的流程，發現此 app 的使用者分為<span class="highlight-text">「讀者」與「作者」兩種行為模式</span>，並且這兩種角色有可能會同時存在。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_2cc10651f8d54d7eaa6833b2c11926e3~mv2.png" alt="使用者流程">
+                </div>
+                <p class="img-caption">▲ 使用者任務流程：讀者與作者的雙重角色</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 50px; margin-bottom: 20px; color: #111;">人物誌 (Persona)</h3>
+                <p style="margin-bottom: 30px;">將潛在使用者的資料細節整理過後，轉化成<span class="highlight-text">三個人物誌</span>，讓我能更把此 app 的目標族群確立並且定義重點以及整理痛點。</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_474f1675d6504c28828c45bc49c951cb~mv2.png" alt="人物誌">
+                </div>
+                <p class="img-caption">▲ 三種典型使用者人物誌</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 50px; margin-bottom: 20px; color: #111;">核心痛點</h3>
+                
+                <div class="problem-box">
+                    <h4>痛點 1：缺乏在地社群</h4>
+                    <p>發掘到喜歡的作品，但<span class="highlight-text">難以找到相同領域的同好</span>。在發掘到喜愛的作品後，我們往往都只能到海外為主的網站尋找同好以及作品，台灣為主的平台少而小眾。</p>
+                </div>
+
+                <div class="problem-box">
+                    <h4>痛點 2：作品發表困境</h4>
+                    <p>創作了作品後，<span class="highlight-text">找不到適合的平台發布並得到回饋</span>。當創作者們完成了作品，往往發布後不一定能夠得到相應的回饋。例如將作品發佈在 twitter，並不會有非常多台灣人觀看，使用者還是以海外為主，也因此觀看數以及回饋也會不符期望。</p>
+                </div>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">定義問題與目標</h3>
+                <div style="background: linear-gradient(135deg, #7C4DFF 0%, #536DFE 100%); color: #fff; padding: 30px; border-radius: 10px; margin: 20px 0;">
+                    <p style="font-size: 18px; font-weight: 500; margin: 0; color: #fff;">通過發表自己創作的插畫/漫畫/小說結交同好，讓台灣創作者能有更加自由且能夠交流喜好的美好平台。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-04" class="split-section border-b">
+            <div class="split-left border-r">
+                資訊架構
+                <div class="split-subtitle">04. Information Architecture</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">在整理使用者的需求與痛點後，將此 app 分為<span class="highlight-text">四大功能</span>：「首頁」、「搜尋」、「通知」、「我的頁面」，並且列出各頁面的主要功能以及流程。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_8e120a14bf074ab0b041d778360b975c~mv2.png" alt="使用者地圖">
+                </div>
+                <p class="img-caption">▲ 使用者地圖：四大功能模組與流程規劃</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">核心功能模組</h3>
+                <ul style="list-style-type: disc; margin-left: 20px; font-size: 16px; color: #333;">
+                    <li><strong>首頁：</strong>顯示已關注作者的作品，時間軸模式，最新作品顯示在最上方</li>
+                    <li><strong>搜尋：</strong>以標籤方式進行搜尋，可選擇插圖、漫畫、小說、用戶進行篩選</li>
+                    <li><strong>通知：</strong>包含作品通知、追蹤要求、私人訊息</li>
+                    <li><strong>我的頁面：</strong>個人資料、作品管理、收藏夾、設定</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="section-05" class="split-section border-b">
+            <div class="split-left border-r">
+                線框圖
+                <div class="split-subtitle">05. Wireframe</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">在設計視覺稿之前，先使用線框圖設計頁面。在此階段的<span class="highlight-text">首頁排版苦惱許久</span>，由於希望使用者在首頁能夠切換關注中或推薦作品，在第一版的設計中將這兩個按鈕放在頁面下方，但發現此設計會與下方導航列相互干擾，因此在 prototype 將會把按鈕改放回上方導航列。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_7c1202fdd26c4c8db552a6527ed81111~mv2.png" alt="線框圖">
+                </div>
+                <p class="img-caption">▲ 初期線框圖：探索不同的版面配置方案</p>
+            </div>
+        </section>
+
+        <section id="section-06" class="split-section border-b">
+            <div class="split-left border-r">
+                使用者測試
+                <div class="split-subtitle">06. Usability Testing</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">在此階段請潛在使用者遠端進行易用性測試，在操作了線框圖後發現使用者需要的是<span class="highlight-text">客製化的推薦喜愛作品</span>，以及身為創作者與使用者的使用方式有些微差異。</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_0f6bc0fa3c984118a4a17f5cc3b06f21~mv2.png" alt="使用者測試">
+                </div>
+                <p class="img-caption">▲ 使用者測試過程與反饋整理</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 40px; margin-bottom: 20px; color: #111;">測試者反饋重點</h3>
+                <ul style="list-style-type: disc; margin-left: 20px; font-size: 16px; color: #333;">
+                    <li>原先預計將投稿按鈕放在下方導航列，但測試者反映<span class="highlight-text">並不是高機率會做投稿這個行為</span>，因此投稿按鈕將會收在個人頁面內。</li>
+                    <li>推薦作品內將會新增<span class="highlight-text">熱門標籤</span>，讓使用者可以更直覺的發掘熱門作品的推薦。</li>
+                    <li>首頁作品原先只有關注中及為您推薦，經過測試者反映後，另外再新增了<span class="highlight-text">「我的好友」、「訂閱標籤」</span>這兩個客製化選項。</li>
+                </ul>
+
+                <div style="background: #E8F5E9; padding: 25px; margin-top: 30px; border-left: 4px solid #4CAF50;">
+                    <p style="margin: 0;"><strong>💡 設計調整：</strong>基於測試反饋，我們優化了導航結構、新增了客製化推薦功能，並將投稿功能移至更合適的位置。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-07" class="split-section border-b">
+            <div class="split-left border-r">
+                高保真原型
+                <div class="split-subtitle">07. High-Fidelity Prototype</div>
+            </div>
+            <div class="split-right">
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 20px; color: #111;">首頁</h3>
+                <p style="margin-bottom: 20px;">首頁顯示<span class="highlight-text">「已關注作者」的作品</span>，時間軸模式，最新作品會顯示在頁面最上方。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_cbabfd4de5dd403d8548853c8da96fe9~mv2.gif" alt="首頁動畫">
+                </div>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_de231f4e84b64ef3a9305c427918bd5a~mv2.png" alt="首頁截圖">
+                </div>
+                <p class="img-caption">▲ 首頁：時間軸模式顯示關注作品</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_bae999781f494d3ea11d5d484793aa75~mv2.png" alt="首頁推薦">
+                </div>
+                <p class="img-caption">▲ 推薦頁面：個人化內容推薦</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_effc7f8f8a994216a937c073d7baeabb~mv2.png" alt="首頁標籤">
+                </div>
+                <p class="img-caption">▲ 標籤訂閱：客製化興趣內容</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 60px; margin-bottom: 20px; color: #111;">搜尋</h3>
+                <p style="margin-bottom: 20px;">以<span class="highlight-text">標籤方式進行搜尋</span>，可選擇插圖、漫畫、小說、用戶進行篩選。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_d26638cdb5814f86898eb01f8f2187ba~mv2.gif" alt="搜尋動畫">
+                </div>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_027e61936ad04081924683884608458a~mv2.png" alt="搜尋頁面">
+                </div>
+                <p class="img-caption">▲ 搜尋頁面：標籤式搜尋與篩選</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_ca000c907f9a4e8da03673c3e336273b~mv2.png" alt="搜尋結果">
+                </div>
+                <p class="img-caption">▲ 搜尋結果：瀑布流展示作品</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 60px; margin-bottom: 20px; color: #111;">通知</h3>
+                <p style="margin-bottom: 20px;">通知包含<span class="highlight-text">作品通知、追蹤要求、私人訊息</span>。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_6f916e046cb745bb80f3efa9d7e28c8b~mv2.gif" alt="通知動畫">
+                </div>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_48a2f0b4d7d14bb486b8be4d1fa8c5f0~mv2.png" alt="通知頁面">
+                </div>
+                <p class="img-caption">▲ 通知中心：即時互動提醒</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 60px; margin-bottom: 20px; color: #111;">投稿作品</h3>
+                <p style="margin-bottom: 20px;">投稿作品分別為<span class="highlight-text">插畫、漫畫、小說</span>。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_5fcf3dc9f7dd4ea19ddbfc22ca1f7815~mv2.gif" alt="投稿插畫">
+                </div>
+                <p class="img-caption">▲ 投稿插畫流程</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_6834bf41566f48279d87d8373fc72868~mv2.gif" alt="投稿小說">
+                </div>
+                <p class="img-caption">▲ 投稿小說流程</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_cd82dc31f0554b4fbe9b709892d6ecd6~mv2.png" alt="投稿作品介面">
+                </div>
+                <p class="img-caption">▲ 投稿作品：支援多種創作形式</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_97f7df0ff31b4bd58ad7a73de49f0668~mv2.png" alt="新增小說">
+                </div>
+                <p class="img-caption">▲ 新增小說：文字創作編輯器</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-top: 60px; margin-bottom: 20px; color: #111;">觀看作品</h3>
+                <p style="margin-bottom: 20px;">觀看作品分別為<span class="highlight-text">插畫、漫畫、小說</span>。</p>
+                
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_203924d9cc6b43ff93d731c7092a7d5b~mv2.gif" alt="觀看插畫">
+                </div>
+                <p class="img-caption">▲ 觀看插畫：沉浸式閱讀體驗</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_9e6b7665740144c394eeb2db0200662d~mv2.gif" alt="觀看小說">
+                </div>
+                <p class="img-caption">▲ 觀看小說：舒適的閱讀排版</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_8afa02d623a3402ba7078de3cabdf0d2~mv2.png" alt="觀看作品介面">
+                </div>
+                <p class="img-caption">▲ 作品詳情：互動與資訊並重</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_a08332d6f0cb4ce1b7fb5d7e776c2fd5~mv2.png" alt="觀看作品介面2">
+                </div>
+                <p class="img-caption">▲ 評論互動：社群交流功能</p>
+
+                <div class="img-placeholder">
+                    <img src="https://static.wixstatic.com/media/dafa39_dec710702c6543e68da4b08a242c561b~mv2.png" alt="隱私模式">
+                </div>
+                <p class="img-caption">▲ 隱私模式：保護使用者瀏覽隱私</p>
+
+                <div style="background: #F3E5F5; padding: 30px; margin-top: 40px; border-radius: 10px; text-align: center;">
+                    <h3 style="font-weight: 700; margin-bottom: 15px; color: var(--highlight-color);">互動原型</h3>
+                    <p style="margin-bottom: 20px;">點擊下方按鈕查看完整的互動原型</p>
+                    <a href="https://www.figma.com/proto/8Vw9cuZCmlWe7T74vD3pyU/%E4%BD%9C%E5%93%81%E6%8A%95%E7%A8%BFapp?page-id=51%3A854&node-id=64%3A1842&viewport=241%2C48%2C0.09&scaling=scale-down&starting-point-node-id=188%3A3106" target="_blank" style="display: inline-block; background: var(--highlight-color); color: #fff; padding: 12px 30px; border-radius: 25px; font-weight: 700; transition: 0.3s;">查看 Prototype ↗</a>
+                    <p style="margin-top: 15px; font-size: 14px; color: #666;">建議使用電腦瀏覽器觀看</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="section-08" class="split-section border-b">
+            <div class="split-left border-r">
+                反思與感想
+                <div class="split-subtitle">08. Reflection</div>
+            </div>
+            <div class="split-right">
+                <p style="margin-bottom: 30px;">這是首次執行<span class="highlight-text">從零到一的專案</span>，從使用者研究到最後的成品展示，我在過程中學到了以下幾點：</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 15px; color: #111;">1. 確立產品定位</h3>
+                <p style="margin-bottom: 30px;">在使用許多創作類型 app 之中，我了解到同樣身為投稿平台，產品的定位也不盡相同，必須要<span class="highlight-text">先確定自身產品的定位</span>，才能夠將目標功能往更深更專一的方向發展。</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 15px; color: #111;">2. 設計介面簡化</h3>
+                <p style="margin-bottom: 30px;">由於創作類型 app 以圖片佔版面最多，因此將設計簡化但是又能讓使用者能夠清楚地找到項目、同時又能夠<span class="highlight-text">讓創作者的作品得以清楚展現</span>，並且不顯得零亂，在設計介面簡化上學習了許多。</p>
+
+                <h3 style="font-size: 20px; font-weight: 700; margin-bottom: 15px; color: #111;">3. 目標期望</h3>
+                <p style="margin-bottom: 30px;">設計此產品的初衷是希望能夠讓台灣創作者有一個自由發展的創作平台，但要達到這個目標不只是 UI/UX 設計，也需要<span class="highlight-text">行銷等多面向發展</span>才能成立。</p>
+
+                <div style="background: linear-gradient(135deg, #7C4DFF 0%, #536DFE 100%); color: #fff; padding: 40px; border-radius: 10px; margin-top: 50px;">
+                    <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 20px; color: #fff;">未來展望</h3>
+                    <p style="margin: 0; font-size: 16px; line-height: 1.8; color: #fff;">希望未來能有機會將此專案實際落地，為台灣的創作者社群貢獻一份心力，打造一個真正屬於台灣創作者的交流平台。</p>
+                </div>
+            </div>
+        </section>
+
+        <footer style="padding: 60px 40px; text-align: center;">
+            <p style="margin-bottom: 20px; opacity: 0.5;">Next Project</p>
+            <a href="#" style="font-size: 24px; font-weight: 900; border-bottom: 2px solid #000;">meet Taiwan：台灣旅遊景點導覽 ↗</a>
+            <br><br><br>
+            <a href="https://yhliudes.github.io/portfolio-2025/" style="font-size: 14px; color: #666;">← Back to Home</a>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 燈箱邏輯
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const closeBtn = document.querySelector('.lightbox-close');
+            const images = document.querySelectorAll('.img-placeholder img');
+
+            images.forEach(img => {
+                img.parentElement.addEventListener('click', () => {
+                    lightbox.style.display = 'flex';
+                    lightboxImg.src = img.src;
+                });
+            });
+
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                }
+            });
+
+            // 平滑滾動
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // 導航列高亮
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.menu-tab');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
