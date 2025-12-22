@@ -129,6 +129,15 @@
         .img-placeholder:hover img {
             transform: scale(1.02);
         }
+
+        /* === 新增：針對 GIF 動畫設定固定寬度 (手機尺寸) === */
+        .img-placeholder img[src$=".gif"] {
+            width: 390px !important; /* 強制寬度 */
+            max-width: 100%; /* RWD 安全設定 */
+            height: auto;
+            border-radius: 12px; /* 增加圓角讓手機畫面更好看 */
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); /* 增加陰影 */
+        }
         
         .img-caption { font-size: 14px; color: #666; text-align: center; margin-top: 10px; }
 
@@ -306,7 +315,7 @@
     <div class="container">
         <header class="border-b">
             <div class="logo">YA CHIEH LIU</div>
-            <a href="https://yhliudes.github.io/portfolio-2025/" class="back-btn">← BACK TO LIST</a>
+            <a href="index.html" class="back-btn">← BACK TO LIST</a>
         </header>
 
         <section class="project-hero border-b">
@@ -658,11 +667,9 @@
             </div>
         </section>
 
-        <footer style="padding: 60px 40px; text-align: center;">
-            <p style="margin-bottom: 20px; opacity: 0.5;">Next Project</p>
-            <a href="#" style="font-size: 24px; font-weight: 900; border-bottom: 2px solid #000;">meet Taiwan：台灣旅遊景點導覽 ↗</a>
-            <br><br><br>
-            <a href="https://yhliudes.github.io/portfolio-2025/" style="font-size: 14px; color: #666;">← Back to Home</a>
+        <footer style="padding: 120px 40px; text-align: center;">
+            <p style="margin-bottom: 20px; opacity: 0.5;">More Projects</p>
+            <a href="index.html" style="font-size: 24px; font-weight: 900; border-bottom: 2px solid #000;">View All Projects ↗</a>
         </footer>
     </div>
 

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | YC. DESIGN</title>
+    <style>
+        /* --- CSS Reset & Variables --- */
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-color: #555555;
+            --border-color: var(--text-color);
+            --font-main: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --container-width: 1200px;
+            --spacing-section: 100px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { text-decoration: none; color: inherit; transition: opacity 0.3s; }
+        a:hover { opacity: 0.6; }
+        ul { list-style: none; }
+
+        /* --- Header & Nav (要複製的部分 A) --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Resume 按鈕樣式 */
+        .btn-resume {
+            padding: 8px 20px;
+            border: 1px solid var(--text-color);
+            border-radius: 50px;
+            transition: all 0.3s;
+        }
+        
+        .btn-resume:hover {
+            background: var(--text-color);
+            color: #fff;
+            opacity: 1;
+        }
+        /* --- Header & Nav 結束 --- */
+
+        /* --- Marquee (Decorative) --- */
+        .marquee-container {
+            margin-top: 80px;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* --- Main Layout --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            margin-bottom: var(--spacing-section);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr; /* 保持這個比例 */
+            gap: 60px;
+            align-items: start; /* 改回靠上對齊，避免圖片被拉長 */
+            padding-top: 80px;
+        }
+
+        .hero-image {
+            width: 100%;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero-intro p {
+            font-size: 1.05rem;
+            color: var(--text-color);
+            margin-bottom: 24px;
+            text-align: justify;
+            font-weight: 400;
+        }
+
+        /* --- Traits Grid (放回 Hero 內部) --- */
+        .traits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .trait-item h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+        
+        .trait-item p {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            line-height: 1.4;
+        }
+
+        /* --- Skills & Tools Section --- */
+        .skills {
+            border-top: 1px solid var(--border-color);
+            padding-top: 80px;
+        }
+
+        .skills-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .skill-group {
+            margin-bottom: 40px;
+        }
+
+        .skill-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .skill-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-color);
+        }
+
+        .tools-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tag {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: transparent;
+            color: var(--text-color);
+        }
+
+        .lang-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            font-weight: 500;
+        }
+
+        /* --- Experience Section --- */
+        .experience {
+            border-top: 1px solid var(--border-color);
+            padding-top: 80px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 40px;
+            padding-bottom: 40px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .year {
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .job-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .company {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: inline-block;
+            border: 1px solid var(--text-color);
+            color: var(--text-color);
+            padding: 4px 12px;
+        }
+
+        .job-desc ul {
+            list-style: none;
+        }
+        
+        .job-desc li {
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+            color: var(--accent-color);
+        }
+        
+        .job-desc li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-color);
+        }
+
+        /* --- Footer (Updated) --- */
+        footer {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-size: 2.5rem; /* 字體大小減半 */
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 40px;
+            line-height: 1;
+        }
+
+        .footer-info p {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.5;
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            text-transform: uppercase;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: left;
+                padding-top: 40px;
+            }
+
+            .hero-image img {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .traits-grid, .skills-layout, .timeline-item {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-brand {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><a href="index.html">YC. DESIGN</a></div>
+        <nav>
+            <ul>
+                <li><a href="index.html#works">Works</a></li>
+                <li><a href="about.html">About</a></li>
+                <li>
+                    <a href="https://33d4dbd9-91c9-4666-81f8-1cf3a477bc58.filesusr.com/ugd/dafa39_263f40b7a705458d808ab49923de6b7e.pdf" 
+                       target="_blank" 
+                       class="btn-resume">
+                       Resume
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="marquee-container">
+        <div class="marquee-content">
+            YA CHIEH LIU PORTFOLIO • UI/UX DESIGN • DIGITAL EXPERIENCE • 2025 SELECTED WORKS • YA CHIEH LIU PORTFOLIO • UI/UX DESIGN • DIGITAL EXPERIENCE • 2025 SELECTED WORKS •
+        </div>
+    </div>
+
+    <main class="container">
+        
+        <section class="hero">
+            <div class="hero-image">
+                <img src="https://static.wixstatic.com/media/dafa39_a618b32178fc46c4812624f5a3927d44~mv2.jpg/v1/crop/x_0,y_14,w_1007,h_1320/fill/w_478,h_620,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/%E5%80%8B%E4%BA%BA%E7%85%A7.jpg" alt="Liu Ya Chieh">
+            </div>
+            
+            <div class="hero-text">
+                <h1>嗨，我是劉雅杰！<br><span style="font-size: 0.5em; font-weight: 400; display:block; margin-top:10px;">UI/UX Designer based in Taiwan</span></h1>
+                <div class="hero-intro">
+                    <p>至今已累積三年 UI 設計師的工作經驗，參與過大型專案，並曾在接案公司累積實務經驗。早期從事平面設計及行銷企劃等多元領域時，我深刻感受到視覺吸引力的重要性，但更認識到解決問題的本質在於溝通。</p>
+                    <p>這樣的體悟促使我轉向以人為本的 UI/UX 領域，目前持續專注於創作與精進，並決心在此領域深耕邁進。</p>
+                </div>
+
+                <div class="traits-grid">
+                    <div class="trait-item">
+                        <h3>獨立作業</h3>
+                        <p>擅長多工處理，適當分配工作優先順序。</p>
+                    </div>
+                    <div class="trait-item">
+                        <h3>自主學習</h3>
+                        <p>自學 UI/UX、Daily UI 練習，並考取日文 N1。</p>
+                    </div>
+                    <div class="trait-item">
+                        <h3>溝通協調</h3>
+                        <p>具備跨部門溝通經驗，能有效推進專案進度。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="skills">
+            <h2>Expertise & Skills</h2>
+            <div class="skills-layout">
+                <div>
+                    <div class="skill-group">
+                        <h3>UI/UX & Web Design</h3>
+                        <ul class="skill-list">
+                            <li>視覺與用戶介面設計</li>
+                            <li>Wireframe / Mockup / Prototype 規劃</li>
+                            <li>分析市場與使用者需求，定義問題並提出方案</li>
+                            <li>熟悉 iOS / Android 設計規範</li>
+                            <li>了解網站基本架構及 HTML/CSS 語法</li>
+                        </ul>
+                    </div>
+                    <div class="skill-group">
+                        <h3>Graphic Design</h3>
+                        <ul class="skill-list">
+                            <li>Logo 商標、CI 識別系統設計</li>
+                            <li>平面設計、輸出印刷品、書冊編排</li>
+                            <li>約十年電腦繪圖經驗</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="skill-group">
+                        <h3>Tools</h3>
+                        <div class="tools-tags">
+                            <span class="tag">Figma</span>
+                            <span class="tag">Adobe XD</span>
+                            <span class="tag">Photoshop</span>
+                            <span class="tag">Illustrator</span>
+                            <span class="tag">InDesign</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>Languages</h3>
+                        <div class="lang-item">
+                            <span>中文 (Chinese)</span>
+                            <span>母語</span>
+                        </div>
+                        <div class="lang-item">
+                            <span>英文 (English)</span>
+                            <span>GEPT 中級</span>
+                        </div>
+                        <div class="lang-item">
+                            <span>日文 (Japanese)</span>
+                            <span>JLPT N1 合格</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <h3>Self-Learning</h3>
+                        <ul class="skill-list">
+                            <li>Hahow 線上課程（UI/UX, Figma, Product Design）</li>
+                            <li>參與 F2E 前端修煉（與工程師協作）</li>
+                            <li>持續 Daily UI 練習</li>
+                            <li>閱讀設計心理學相關書籍</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="experience">
+            <h2>Experience</h2>
+            
+            <div class="timeline-item">
+                <div class="year">2022 - Present</div>
+                <div class="content">
+                    <div class="job-title">UI 設計師</div>
+                    <div class="company">斯曼特企業股份有限公司</div>
+                    <div class="job-desc">
+                        <ul>
+                            <li>負責公司網站整體視覺與功能改版，優化用戶體驗。</li>
+                            <li>從零開始設計內部 ERP 系統（需求分析、流程設計、原型開發）。</li>
+                            <li>進行用戶訪談與可用性測試，持續優化產品。</li>
+                            <li>建立設計系統 (Design System)，規範 UI 元件。</li>
+                            <li>與前後端工程師密切合作，確保技術可行性。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="year">2022</div>
+                <div class="content">
+                    <div class="job-title">UI 設計師</div>
+                    <div class="company">索爾斯科技有限公司</div>
+                    <div class="job-desc">
+                        <ul>
+                            <li>獨立負責專案及後台設計，執行網頁設計製作。</li>
+                            <li>繪製 Wireframe、Flow Chart 與 Prototype。</li>
+                            <li>具備從 0 到 1 獨立作業能力，並與團隊協作溝通。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="year">2020 - 2022</div>
+                <div class="content">
+                    <div class="job-title">平面設計師</div>
+                    <div class="company">中華國際健康管理協會</div>
+                    <div class="job-desc">
+                        <ul>
+                            <li>品牌 Logo 設計、手冊排版、EDM 製作。</li>
+                            <li>官方網站後台管理與商城更新維護。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="year">2016 - 2020</div>
+                <div class="content">
+                    <div class="job-title">產品設計師</div>
+                    <div class="company">破銅爛鐵飾品店</div>
+                    <div class="job-desc">
+                        <ul>
+                            <li>飾品設計及金工製作，產品持續銷售中。</li>
+                            <li>負責產品設計管理，與工廠溝通製作進度。</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+             <div class="timeline-item">
+                <div class="year">Freelance</div>
+                <div class="content">
+                    <div class="job-title">政府專書設計</div>
+                    <div class="company">高雄市工務局 / 水務局</div>
+                    <div class="job-desc">
+                        <ul>
+                            <li>高雄市工務局宣導專書設計 (2017)</li>
+                            <li>高雄市水務局宣導專書設計 (2016)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+             <div class="timeline-item">
+                <div class="year">Education</div>
+                <div class="content">
+                    <div class="job-title">視覺傳達設計系 學士</div>
+                    <div class="company">台南應用科技大學 (2010 - 2014)</div>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-brand">YC. DESIGN</div>
+            
+            <div class="footer-info">
+                <p>Email: yachiehliu.des@gmail.com</p>
+                <p>Phone: 0930-633-961</p>
+            </div>
+
+            <div class="copyright">
+                © 2025 YA CHIEH LIU. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
