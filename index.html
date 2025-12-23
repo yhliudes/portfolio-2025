@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YA CHIEH LIU | Portfolio</title>
     <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js" type="module"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&family=Noto+Sans+TC:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* === 核心設定 === */
@@ -58,20 +58,20 @@
             100% { transform: translateX(-50%); }
         }
 
-        /* === Header & Nav (Updated) === */
+        /* === Header & Nav === */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 24px 40px;
             border-bottom: 1px solid var(--line-color);
-            background: #fff; /* 確保背景不透明 */
+            background: #fff;
         }
         .logo { font-weight: 900; font-size: 24px; letter-spacing: -0.5px; }
         
         nav ul { 
             display: flex; 
-            align-items: center; /* 垂直置中 */
+            align-items: center; 
             gap: 32px; 
             font-size: 14px; 
             font-weight: 600; 
@@ -80,7 +80,6 @@
         
         nav a:hover { opacity: 0.6; }
 
-        /* Resume 按鈕樣式 (移植自 about.html) */
         .btn-resume {
             padding: 8px 24px;
             border: 1px solid var(--text-color);
@@ -117,52 +116,117 @@
         }
         h1 { font-size: 80px; line-height: 0.9; font-weight: 900; text-transform: uppercase; margin-bottom: 20px; }
         .intro-text { font-size: 16px; max-width: 400px; color: #444; }
+        .intro-wrapper { display: flex; flex-direction: column; gap: 0px; }
 
-        /* === 作品列表 === */
-        .section-title { padding: 20px 40px; font-size: 12px; font-weight: 700; border-bottom: 1px solid var(--line-color); text-transform: uppercase; letter-spacing: 1px; }
+        /* === 作品列表 (全新佈局) === */
+        .section-title { 
+            padding: 20px 40px; 
+            font-size: 12px; 
+            font-weight: 700; 
+            border-bottom: 1px solid var(--line-color); 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
         
         .project-item {
             display: grid;
-            grid-template-columns: 80px 1fr 200px;
-            padding: 40px;
+            /* 桌面版 Grid: [編號] [圖片] [文字] [分類] */
+            grid-template-columns: 80px 420px 1fr auto; 
+            height: 280px; /* 固定高度以實現頂天立地 */
+            padding: 0; /* 移除 padding 讓圖片頂邊 */
             border-bottom: 1px solid var(--line-color);
-            align-items: center;
+            align-items: stretch; /* 強制所有子元素等高 */
             transition: all 0.3s ease;
+            background: #fff;
+            overflow: hidden; /* 防止圖片放大時溢出 */
+        }
+
+        .project-item:hover {
+            background: #fafafa;
+        }
+
+        /* 編號區塊 */
+        .p-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-family: 'Inter';
+            opacity: 0.5;
+            padding: 20px;
+        }
+        
+        /* 圖片容器：頂天立地 + 黑色邊框 */
+        .p-img-box {
+            width: 100%;
+            height: 100%;
+            border-left: 1px solid var(--line-color);  /* 左黑框 */
+            border-right: 1px solid var(--line-color); /* 右黑框 */
+            overflow: hidden;
             position: relative;
         }
-        .project-item:hover {
-            background: #000;
-            color: #fff;
-        }
-        .p-num { font-size: 14px; opacity: 0.5; font-family: 'Inter'; }
-        .p-name { font-size: 32px; font-weight: 700; }
-        .p-cat { font-size: 14px; text-align: right; opacity: 0.7; }
 
-        /* === 懸浮圖片 === */
-        .hover-img {
-            position: fixed;
-            width: 400px;
-            height: 260px;
-            object-fit: cover;
-            pointer-events: none;
-            z-index: 10;
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.8);
-            transition: opacity 0.2s, transform 0.2s;
-            border: 1px solid #000;
-            display: none;
+        .p-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 確保圖片填滿且不變形 */
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: grayscale(100%); /* 預設黑白 */
         }
 
-        /* === Footer (New Style) === */
+        .project-item:hover .p-img-box img {
+            transform: scale(1.05); /* 懸浮微放大 */
+            filter: grayscale(0%); /* 懸浮變彩色 */
+        }
+
+        /* 文字資訊區塊 */
+        .p-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 40px;
+        }
+
+        .p-name { 
+            font-size: 32px; 
+            font-weight: 700; 
+            line-height: 1.2; 
+            margin-bottom: 12px;
+            color: var(--text-color);
+        }
+
+        .p-desc {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+            max-width: 600px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 限制顯示三行 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 分類區塊 */
+        .p-cat {
+            display: flex;
+            align-items: flex-end; /* 對齊下方 */
+            padding: 40px;
+            font-size: 14px;
+            opacity: 0.5;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        /* === Footer === */
         footer {
             background: var(--text-color);
-            color: #ffffff; /* 強制白字 */
+            color: #ffffff;
             padding: 80px 40px 60px;
             text-align: center;
         }
 
         .footer-brand {
-            font-size: 2.5rem; /* 您要求的縮小尺寸 */
+            font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: -1px;
             margin-bottom: 40px;
@@ -186,25 +250,39 @@
         }
 
         /* === 手機版調整 === */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .hero { grid-template-columns: 1fr; }
             .hero-left { border-right: none; border-bottom: 1px solid var(--line-color); padding: 40px 20px; }
             .hero-right { padding: 40px 20px; }
             h1 { font-size: 48px; }
-            .project-item { grid-template-columns: 1fr; gap: 10px; padding: 30px 20px; }
-            .p-cat { text-align: left; }
-            .hover-img { display: none !important; }
+            
+            /* 作品列表 RWD：改回堆疊式 */
+            .project-item { 
+                grid-template-columns: 1fr; 
+                height: auto; /* 自動高度 */
+                padding: 40px 20px;
+                gap: 20px;
+            }
+            
+            .p-num { 
+                justify-content: flex-start; 
+                padding: 0; 
+                margin-bottom: -10px;
+            }
+            
+            .p-img-box { 
+                width: 100%; 
+                height: 240px; /* 手機版固定圖片高度 */
+                border: 1px solid var(--line-color); /* 手機版保留全框 */
+            }
+            
+            .p-info { padding: 0; }
+            .p-name { font-size: 24px; margin-bottom: 8px; }
+            .p-cat { padding: 0; align-items: flex-start; margin-top: 10px; }
+            
             header { padding: 20px; }
             nav ul { gap: 15px; }
-            
-            /* Footer RWD */
             .footer-brand { font-size: 2rem; }
-        }
-
-        .intro-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 0px;
         }
     </style>
 </head>
@@ -260,22 +338,40 @@
         <div id="works">
             <div class="section-title">Selected Projects</div>
 
-            <a href="project-spa.html" class="project-item" onmouseenter="showImg('img1')" onmouseleave="hideImg()">
-                <span class="p-num">01</span>
-                <span class="p-name">SPA 產業後台系統</span>
-                <span class="p-cat">ERP / B2B System</span>
+            <a href="project-spa.html" class="project-item">
+                <div class="p-num">01</div>
+                <div class="p-img-box">
+                    <img src="https://images.plurk.com/5XY9bgCJINCAKSKKIBBWkN.png" alt="SPA System">
+                </div>
+                <div class="p-info">
+                    <h3 class="p-name">SPA 產業後台系統</h3>
+                    <p class="p-desc">專為 SPA 產業打造的 B2B 後台管理系統，整合進銷存、會員管理與預約排程的一站式解決方案，大幅提升營運效率與數位化程度。</p>
+                </div>
+                <div class="p-cat">ERP / B2B System</div>
             </a>
 
-            <a href="project-inmeet.html" class="project-item" onmouseenter="showImg('img2')" onmouseleave="hideImg()">
-                <span class="p-num">02</span>
-                <span class="p-name">inmeet 交友軟體</span>
-                <span class="p-cat">App Design / Social</span>
+            <a href="project-inmeet.html" class="project-item">
+                <div class="p-num">02</div>
+                <div class="p-img-box">
+                    <img src="https://static.wixstatic.com/media/7b0f4c_c7180ee16ce34d28babea9c469101532~mv2.png" alt="inmeet App">
+                </div>
+                <div class="p-info">
+                    <h3 class="p-name">inmeet 交友軟體</h3>
+                    <p class="p-desc">一款專注於視覺與互動體驗的交友軟體 App，提供流暢的配對與直覺的聊天功能，打造輕鬆自然的社交體驗。</p>
+                </div>
+                <div class="p-cat">App Design / Social</div>
             </a>
 
-            <a href="project-erect.html" class="project-item" onmouseenter="showImg('img3')" onmouseleave="hideImg()">
-                <span class="p-num">03</span>
-                <span class="p-name">erect 創作投稿平台</span>
-                <span class="p-cat">Side Project / Platform</span>
+            <a href="project-erect.html" class="project-item">
+                <div class="p-num">03</div>
+                <div class="p-img-box">
+                    <img src="https://static.wixstatic.com/media/dafa39_3aa019d0760d4806b9818badbc788f4d~mv2.png" alt="erect App">
+                </div>
+                <div class="p-info">
+                    <h3 class="p-name">erect 創作投稿平台</h3>
+                    <p class="p-desc">專為創作者打造的投稿與交流平台，解決台灣創作者缺乏在地社群的痛點，讓插畫、漫畫、小說創作者擁有更自由的發表空間。</p>
+                </div>
+                <div class="p-cat">Side Project / Platform</div>
             </a>
         </div>
 
@@ -293,42 +389,5 @@
         </footer>
     </div>
 
-    <img id="preview-img" class="hover-img" src="" alt="Project Preview">
-
-    <script>
-        const previewImg = document.getElementById('preview-img');
-
-        const projectImages = {
-            'img1': 'https://images.plurk.com/5XY9bgCJINCAKSKKIBBWkN.png',
-            'img2': 'https://static.wixstatic.com/media/7b0f4c_c7180ee16ce34d28babea9c469101532~mv2.png',
-            'img3': 'https://static.wixstatic.com/media/dafa39_3aa019d0760d4806b9818badbc788f4d~mv2.png'
-        };
-
-        function showImg(id) {
-            if(window.innerWidth > 768) {
-                previewImg.src = projectImages[id];
-                previewImg.style.display = 'block';
-                setTimeout(() => {
-                    previewImg.style.opacity = '1';
-                    previewImg.style.transform = 'translate(-50%, -50%) scale(1)';
-                }, 10);
-            }
-        }
-
-        function hideImg() {
-            previewImg.style.opacity = '0';
-            previewImg.style.transform = 'translate(-50%, -50%) scale(0.8)';
-            setTimeout(() => {
-                previewImg.style.display = 'none';
-            }, 200);
-        }
-
-        document.addEventListener('mousemove', (e) => {
-            if(previewImg.style.display === 'block') {
-                previewImg.style.left = e.clientX + 'px';
-                previewImg.style.top = e.clientY + 'px';
-            }
-        });
-    </script>
 </body>
 </html>
