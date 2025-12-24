@@ -17,7 +17,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', 'Noto Sans TC', sans-serif; line-height: 1.6; }
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: opacity 0.3s; }
         img { max-width: 100%; display: block; }
 
         /* 重點標記樣式 */
@@ -29,12 +29,16 @@
             font-weight: 600;
         }
 
-        .container {
+       .container {
             max-width: 1600px;
             margin: 0 auto;
             border-left: 1px solid var(--line-color);
             border-right: 1px solid var(--line-color);
             background: #fff;
+            min-height: 100vh;
+            
+            /* === 重要：預留 Nav Bar 空間 === */
+            padding-top: 82px; 
         }
 
         .border-b { border-bottom: 1px solid var(--line-color); }
@@ -42,10 +46,64 @@
         .pad-box { padding: 60px 40px; }
         .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.5; }
         
-        header { display: flex; justify-content: space-between; padding: 20px 40px; align-items: center; }
-        .logo { font-weight: 900; font-size: 20px; }
-        .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
-        .back-btn:hover { background: #000; color: #fff; }
+        /* === Header & Nav (與 Index 一致) === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px; 
+            background: #fff;
+            border-bottom: 1px solid var(--line-color);
+            
+            /* --- 固定在頂端 --- */
+            position: fixed; 
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1600px;
+            z-index: 1000;
+            
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+        }
+
+        .logo { 
+            font-weight: 900; 
+            font-size: 24px; 
+            letter-spacing: -0.5px; 
+        }
+        
+        nav ul { 
+            display: flex; 
+            align-items: center; 
+            gap: 32px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            /* === 加入這三行 === */
+            list-style: none; /* 移除前面的點 */
+            margin: 0;        /* 移除預設外距 */
+            padding: 0;       /* 移除預設內距 */
+        }
+        
+        nav a:hover { opacity: 0.6; }
+
+        /* Resume 按鈕樣式 */
+        .btn-resume {
+            padding: 8px 24px;
+            border: 1px solid var(--text-color);
+            border-radius: 50px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-resume:hover {
+            background: var(--text-color);
+            color: #fff;
+            opacity: 1;
+            text-decoration: none;
+        }
 
         .project-hero { padding: 80px 40px 40px; }
         h1 { font-size: 48px; line-height: 1.1; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
@@ -397,44 +455,6 @@
             color: var(--text-color);
         }
 
-        /* Tab 切換樣式 */
-        .tabs-header {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 30px;
-            overflow-x: auto;
-        }
-        .tab-btn {
-            padding: 15px 25px;
-            cursor: pointer;
-            font-weight: 500;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            font-size: 16px;
-            white-space: nowrap;
-        }
-        .tab-btn:hover {
-            color: #000;
-            background: #f9f9f9;
-        }
-        .tab-btn.active {
-            color: #000;
-            border-bottom: 3px solid #000;
-            font-weight: 700;
-        }
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         /* 燈箱樣式 */
         .lightbox {
             position: fixed;
@@ -466,7 +486,7 @@
 
         footer { padding-bottom: 120px; }
 
-        /* === RWD 手機版 (768px) 修正區塊 === */
+        /* === RWD 手機版 (768px) === */
         @media (max-width: 768px) {
             h1 { font-size: 36px; }
             .highlight-grid { grid-template-columns: 1fr; gap: 30px; }
@@ -528,9 +548,22 @@
     </nav>
 
     <div class="container">
-        <header class="border-b">
-            <div class="logo">YA CHIEH LIU</div>
-            <a href="https://yhliudes.github.io/portfolio-2025/" class="back-btn">← BACK TO LIST</a>
+        
+        <header>
+            <div class="logo"><a href="index.html">YC. DESIGN</a></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#works">Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li>
+                        <a href="https://33d4dbd9-91c9-4666-81f8-1cf3a477bc58.filesusr.com/ugd/dafa39_263f40b7a705458d808ab49923de6b7e.pdf" 
+                           target="_blank" 
+                           class="btn-resume">
+                           Resume
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </header>
 
         <section class="project-hero border-b">
@@ -539,7 +572,6 @@
             <p class="tagline">專為 SPA 產業打造的 B2B 後台管理系統，整合進銷存、會員管理與預約排程的一站式解決方案。</p>
         </section>
 
-        <!-- Highlight 成果區塊 - 更新數值 -->
         <section class="highlight-section border-b">
             <div class="highlight-grid">
                 <div class="highlight-item">
@@ -575,7 +607,7 @@
                 </div>
                 <div class="info-item">
                     <div class="info-title">專案時間</div>
-                    <div>2022.12 - 2025.01<br>持續迭代中</div>
+                    <div>2022.12 - 2025.06<br>持續迭代中</div>
                 </div>
             </div>
         </section>
@@ -606,7 +638,6 @@
             </div>
         </section>
 
-        <!-- 問題點與解決方案 -->
         <section id="section-015" class="split-section border-b">
             <div class="split-left border-r">
                 問題與解決方案
@@ -768,7 +799,6 @@
             </div>
         </section>
 
-        <!-- 系統架構規劃 -->
         <section id="section-025" class="split-section border-b" style="background: #fff;">
             <div class="split-left border-r">
                 系統架構規劃
@@ -808,13 +838,11 @@
                     <li>讓使用者在<span class="highlight-text">同一畫面即可完成所有動作</span></li>
                 </ul>
                 
-                <!-- Before/After 滑動比較 - 修正版 -->
                 <h3 style="font-weight: 700; margin-bottom: 20px; font-size: 20px;">系統改版對比</h3>
                 <p style="margin-bottom: 30px;">透過重新設計購買流程，我們成功將<span class="highlight-text">多步驟操作整合為單一頁面</span>，並針對 iPad 橫向操作進行優化。<span class="highlight-text">左右拖動滑桿</span>查看舊系統與新版設計的對比：</p>
 
                 <div class="before-after-container">
                     <div class="comparison-slider" id="comparisonSlider">
-                        <!-- After (背景層) -->
                         <div class="comparison-item after">
                             <span class="comparison-label after">🔵 After</span>
                             <img src="./images/erp/new_purchase_ui.png" alt="新版設計" class="comparison-image">
@@ -829,7 +857,6 @@
                             </div>
                         </div>
                         
-                        <!-- Before (前景層，可裁切) -->
                         <div class="comparison-item before" id="beforeItem">
                             <span class="comparison-label before">🔴 Before</span>
                             <img src="./images/erp/old_system.png" alt="舊系統" class="comparison-image">
@@ -844,7 +871,6 @@
                             </div>
                         </div>
                         
-                        <!-- Slider Handle -->
                         <div class="comparison-slider-handle" id="sliderHandle">
                             <div class="comparison-slider-button"></div>
                         </div>
@@ -983,7 +1009,7 @@
                 <div class="split-subtitle">05. Results & Impact</div>
             </div>
             <div class="split-right">
-                <p style="margin-bottom: 30px;">透過實際營運數據，驗證設計成效與使用者體驗。系統上線後（2025/1），我們針對第一線使用者發放問卷，以評估新系統在<span class="highlight-text">設計整潔度、操作難度及流暢度</span>上的實際表現。這些量化回饋不僅驗證了新介面的價值，更清晰地指出了流程中的潛在瓶頸與痛點，成為我們未來持續改善產品的堅實依據。</p>
+                <p style="margin-bottom: 30px;">透過實際營運數據，驗證設計成效與使用者體驗。系統測試版本上線後（2025/1），我們針對第一線使用者發放問卷，以評估新系統在<span class="highlight-text">設計整潔度、操作難度及流暢度</span>上的實際表現。這些量化回饋不僅驗證了新介面的價值，更清晰地指出了流程中的潛在瓶頸與痛點，成為我們未來持續改善產品的堅實依據。</p>
 
                 <div class="quote-bubble">
                     <p class="quote-text">以前每次開單都怕系統當掉，現在流程更順也不容易錯。</p>
@@ -1044,13 +1070,13 @@
                 <div class="split-subtitle">06. Reflection</div>
             </div>
             <div class="split-right">
-                <p style="margin-bottom: 30px;">作為這個專案中<span class="highlight-text">唯一的設計師</span>，我在整個開發過程中累積了寶貴的經驗與深刻的反思。以下是我對這次專案的幾點核心思考：</p>
+                <p style="margin-bottom: 30px;">作為這個專案唯一的設計師，我在整個開發過程中累積了寶貴的經驗與深刻的反思。以下是我對這次專案的幾點核心思考：</p>
 
-                <p>身為這個專案中唯一的設計師，我需要同時處理<span class="highlight-text">多個模組的介面設計與流程規劃</span>，也因此在設計過程中經歷了多次重構與修正。每一次「打掉重練」都讓我更了解系統運作的邏輯與實際使用者的行為差異。</p>
+                <p>身為這個專案中唯一的設計師，我需要同時處理多個模組的介面設計與流程規劃，也因此在設計過程中經歷了多次重構與修正。每一次「打掉重練」都讓我更了解系統運作的邏輯與實際使用者的行為差異。</p>
                 
-                <p style="margin-top: 20px;">這個 ERP 專案不像一般一次性產品，而是一個<span class="highlight-text">不斷進化的系統</span>，目前仍在持續迭代中。過程中我學到如何在需求不斷變動的情況下保持設計一致性，並在限制中找出兼顧穩定性與靈活度的平衡。</p>
+                <p style="margin-top: 20px;">這個 ERP 專案不像一般一次性產品，而是一個不斷進化的系統，目前仍在持續迭代中。過程中我學到如何在需求不斷變動的情況下保持設計一致性，並在限制中找出兼顧穩定性與靈活度的平衡。</p>
 
-                <p style="margin-top: 20px;">未來我希望能導入<span class="highlight-text">更早期、更多樣化的使用者測試</span>，持續以數據驗證與實際回饋作為設計依據，讓整個系統朝向更直覺、可擴充且真正服務第一線人員的方向前進。</p>
+                <p style="margin-top: 20px;">未來我希望能導入更早期、更多樣化的使用者測試，持續以數據驗證與實際回饋作為設計依據，讓整個系統朝向更直覺、可擴充且真正服務第一線人員的方向前進。</p>
             </div>
         </section>
 
@@ -1182,6 +1208,28 @@
                 if (e.target === lightbox) {
                     lightbox.style.display = 'none';
                 }
+            });
+
+            // 導航列高亮
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.menu-tab');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    // const sectionHeight = section.clientHeight; // 暫時不用
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
             });
         });
     </script>

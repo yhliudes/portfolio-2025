@@ -35,6 +35,9 @@
             border-left: 1px solid var(--line-color);
             border-right: 1px solid var(--line-color);
             background: #fff;
+            
+            /* === 重要：預留 Nav Bar 空間 === */
+            padding-top: 82px; 
         }
 
         .border-b { border-bottom: 1px solid var(--line-color); }
@@ -42,10 +45,64 @@
         .pad-box { padding: 60px 40px; }
         .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.5; }
         
-        header { display: flex; justify-content: space-between; padding: 20px 40px; align-items: center; }
-        .logo { font-weight: 900; font-size: 20px; }
-        .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
-        .back-btn:hover { background: #000; color: #fff; }
+        /* === Header & Nav (與 Index 一致) === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px; 
+            background: #fff;
+            border-bottom: 1px solid var(--line-color);
+            
+            /* --- 固定在頂端 --- */
+            position: fixed; 
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1600px;
+            z-index: 1000;
+            
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+        }
+
+        .logo { 
+            font-weight: 900; 
+            font-size: 24px; 
+            letter-spacing: -0.5px; 
+        }
+        
+        nav ul { 
+            display: flex; 
+            align-items: center; 
+            gap: 32px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            /* === 加入這三行 === */
+            list-style: none; /* 移除前面的點 */
+            margin: 0;        /* 移除預設外距 */
+            padding: 0;       /* 移除預設內距 */
+        }
+        
+        nav a:hover { opacity: 0.6; }
+
+        /* Resume 按鈕樣式 */
+        .btn-resume {
+            padding: 8px 24px;
+            border: 1px solid var(--text-color);
+            border-radius: 50px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-resume:hover {
+            background: var(--text-color);
+            color: #fff;
+            opacity: 1;
+            text-decoration: none;
+        }
 
         .project-hero { padding: 80px 40px 40px; }
         h1 { font-size: 48px; line-height: 1.1; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
@@ -313,9 +370,22 @@
     </nav>
 
     <div class="container">
-        <header class="border-b">
-            <div class="logo">YA CHIEH LIU</div>
-            <a href="index.html" class="back-btn">← BACK TO LIST</a>
+        
+        <header>
+            <div class="logo"><a href="index.html">YC. DESIGN</a></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#works">Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li>
+                        <a href="https://33d4dbd9-91c9-4666-81f8-1cf3a477bc58.filesusr.com/ugd/dafa39_263f40b7a705458d808ab49923de6b7e.pdf" 
+                           target="_blank" 
+                           class="btn-resume">
+                           Resume
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </header>
 
         <section class="project-hero border-b">

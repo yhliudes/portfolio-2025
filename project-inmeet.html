@@ -17,7 +17,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background-color: var(--bg-color); color: var(--text-color); font-family: 'Inter', 'Noto Sans TC', sans-serif; line-height: 1.6; }
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: opacity 0.3s; }
         img { max-width: 100%; display: block; }
 
         /* 重點標記樣式 */
@@ -35,6 +35,9 @@
             border-left: 1px solid var(--line-color);
             border-right: 1px solid var(--line-color);
             background: #fff;
+            
+            /* === 重要：預留 Nav Bar 空間 (避免內容被遮擋) === */
+            padding-top: 82px; 
         }
 
         .border-b { border-bottom: 1px solid var(--line-color); }
@@ -42,10 +45,65 @@
         .pad-box { padding: 60px 40px; }
         .section-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; display: block; opacity: 0.5; }
         
-        header { display: flex; justify-content: space-between; padding: 20px 40px; align-items: center; }
-        .logo { font-weight: 900; font-size: 20px; }
-        .back-btn { font-size: 14px; font-weight: 700; border: 1px solid #000; padding: 8px 20px; border-radius: 50px; transition: 0.3s; }
-        .back-btn:hover { background: #000; color: #fff; }
+        /* === Header & Nav (固定置頂，無點點) === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 40px; 
+            background: #fff;
+            border-bottom: 1px solid var(--line-color);
+            
+            /* --- 固定在頂端 (Fixed) --- */
+            position: fixed; 
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1600px;
+            z-index: 1000;
+            
+            border-left: 1px solid var(--line-color);
+            border-right: 1px solid var(--line-color);
+        }
+
+        .logo { 
+            font-weight: 900; 
+            font-size: 24px; 
+            letter-spacing: -0.5px; 
+        }
+        
+        nav ul { 
+            display: flex; 
+            align-items: center; 
+            gap: 32px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            
+            /* === 移除項目符號 === */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        nav a:hover { opacity: 0.6; }
+
+        /* Resume 按鈕樣式 */
+        .btn-resume {
+            padding: 8px 24px;
+            border: 1px solid var(--text-color);
+            border-radius: 50px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-resume:hover {
+            background: var(--text-color);
+            color: #fff;
+            opacity: 1;
+            text-decoration: none;
+        }
 
         .project-hero { padding: 80px 40px 40px; }
         h1 { font-size: 48px; line-height: 1.1; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; }
@@ -74,7 +132,7 @@
         .split-right ul { margin-left: 20px; margin-bottom: 20px; }
         .split-right li { margin-bottom: 10px; }
 
-        /* 圖片容器樣式 */
+        /* 圖片容器樣式 - 加入黑框 */
         .img-placeholder { 
             width: 100%;
             height: auto; 
@@ -89,6 +147,7 @@
             margin-bottom: 20px;
             cursor: zoom-in;
             overflow: hidden;
+            border: 1px solid #000; /* 加入黑框 */
         }
         .img-placeholder img { 
             width: 100%; 
@@ -99,6 +158,15 @@
         }
         .img-placeholder:hover img {
             transform: scale(1.02);
+        }
+
+        /* 針對 GIF 動畫設定固定寬度 (手機尺寸) */
+        .img-placeholder img[src$=".gif"] {
+            width: 390px !important; 
+            max-width: 100%; 
+            height: auto;
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
         }
         
         .img-caption { font-size: 14px; color: #666; text-align: center; margin-top: 10px; }
@@ -300,9 +368,22 @@
     </nav>
 
     <div class="container">
-        <header class="border-b">
-            <div class="logo">YA CHIEH LIU</div>
-            <a href="https://yhliudes.github.io/portfolio-2025/" class="back-btn">← BACK TO LIST</a>
+        
+        <header>
+            <div class="logo"><a href="index.html">YC. DESIGN</a></div>
+            <nav>
+                <ul>
+                    <li><a href="index.html#works">Works</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li>
+                        <a href="https://33d4dbd9-91c9-4666-81f8-1cf3a477bc58.filesusr.com/ugd/dafa39_263f40b7a705458d808ab49923de6b7e.pdf" 
+                           target="_blank" 
+                           class="btn-resume">
+                           Resume
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </header>
 
         <section class="project-hero border-b">
@@ -334,7 +415,6 @@
             </div>
         </section>
 
-        <!-- Inmeet 介紹區塊 -->
         <section class="border-b" style="padding: 60px 40px; background: #FAFAFA;">
             <div style="max-width: 1200px; margin: 0 auto;">
                 <div class="feature-box">
@@ -574,7 +654,7 @@
             </div>
         </section>
 
-<footer style="padding: 60px 40px; text-align: center;">
+        <footer style="padding: 120px 40px; text-align: center;">
             <p style="margin-bottom: 20px; opacity: 0.5;">Next Project</p>
             <a href="project-erect.html" style="font-size: 24px; font-weight: 900; border-bottom: 2px solid #000;">erect 創作投稿平台 ↗</a>
             <br><br><br>
